@@ -6,8 +6,10 @@ import net.bytebuddy.asm.Advice;
 
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
-import java.util.ArrayList;
 import java.util.Random;
+
+//Uncomment this to confirm that JDK classes are being instrumented
+import java.util.ArrayList;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 

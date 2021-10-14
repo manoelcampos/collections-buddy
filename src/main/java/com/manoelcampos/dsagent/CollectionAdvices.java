@@ -3,14 +3,24 @@ package com.manoelcampos.dsagent;
 import net.bytebuddy.asm.Advice;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/
+ * {@link Advice} class to trace calls to methods on {@link Collection} classes.
+ * @see <a href="https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/">Fixing Bugs in Running Java Code with Dynamic Attach</a>
  */
 public class CollectionAdvices {
     public static final Map<Method, Integer> calls = new HashMap<>();
+
+    /**
+     * Only {@link Collection} objects declared in classes
+     * inside this package will be traced.
+     */
+    public static final String INSPECT_PACKAGE_NAME = "com.manoelcampos";
+
+    private static String previousPkg = "";
 
     /**
      * Executed when an advised method is called
@@ -20,10 +30,11 @@ public class CollectionAdvices {
      * @return the time the method started, automatically used as input param to exit() method
      */
     @Advice.OnMethodEnter(suppress = Throwable.class)
-    static long enter(@Advice.This Object self,
-                      @Advice.Origin String origin,
-                      //@Advice.Origin("#t #m") String detailedOrigin,
-                      @Advice.AllArguments Object[] args)
+    static long enter(
+        final @Advice.This Object self,
+        final @Advice.Origin String origin,
+        //final @Advice.Origin("#t #m") String detailedOrigin,
+        final @Advice.AllArguments Object[] args)
     {
         //System.out.println("Called: " + origin);
         return System.nanoTime();
@@ -35,7 +46,12 @@ public class CollectionAdvices {
      *                  return of enter() method.
      */
     @Advice.OnMethodExit(suppress = Throwable.class, onThrowable = Throwable.class)
-    static void exit(@Advice.Origin String origin, @Advice.Enter long startTime){
-        System.out.printf("Execution Time: %10dns for %s%n", (System.nanoTime() - startTime), origin);
+    static void exit(
+        final @Advice.This Object self,
+        final @Advice.Origin String origin,
+        final @Advice.Enter long startTime)
+    {
+        final long executionTime = System.nanoTime() - startTime;
+        System.out.printf("Execution Time: %10dns for %s%n", executionTime, origin);
     }
 }
