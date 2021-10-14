@@ -30,7 +30,6 @@ public class CollectionAgent {
         new AgentBuilder.Default()
                 .ignore(ElementMatchers.nameStartsWith("net.bytebuddy."))
                 .with(new AgentBuilder.InjectionStrategy.UsingInstrumentation(inst, temp))
-                .disableClassFormatChanges()
                 .type(ElementMatchers.nameEndsWith(".ArrayList"))
                 .transform((builder, typeDescription, classLoader, module) ->
                         builder.visit(Advice.to(CollectionAdvices.class)
