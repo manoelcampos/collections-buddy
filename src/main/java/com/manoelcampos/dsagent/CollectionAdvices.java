@@ -20,7 +20,7 @@ public class CollectionAdvices {
      * @return the time the method started, automatically used as input param to exit() method
      */
     @Advice.OnMethodEnter(suppress = Throwable.class)
-    static long enter(@Advice.This Object thisObject,
+    static long enter(@Advice.This Object self,
                       @Advice.Origin String origin,
                       //@Advice.Origin("#t #m") String detailedOrigin,
                       @Advice.AllArguments Object[] args)
