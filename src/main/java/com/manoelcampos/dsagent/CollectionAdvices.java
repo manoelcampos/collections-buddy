@@ -7,14 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * https://github.com/hxt970311/aspectj-ltw
+ * https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/
  */
 public class CollectionAdvices {
     public static final Map<Method, Integer> calls = new HashMap<>();
 
     /**
      * Executed when an advised method is called
-     * @param thisObject object that called the method
+     * @param self object that called the method
      * @param origin a String representing the called method signature
      * @param args arguments given to the called method
      * @return the time the method started, automatically used as input param to exit() method
