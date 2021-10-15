@@ -7,10 +7,6 @@ import net.bytebuddy.asm.Advice;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.Collection;
-import java.util.Random;
-
-//Uncomment this to confirm that JDK classes are being instrumented
-import java.util.ArrayList;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
@@ -36,18 +32,8 @@ public class CollectionAgent {
 
     public static void main(String[] args) throws IOException{
         System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
-
         final Instrumentation instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
-
-        final  var arrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            arrayList.add(i);
-        }
-
-        final Random rand = new Random();
-        for (int i = 0; i < 200; i++) {
-            arrayList.get(rand.nextInt(arrayList.size()));
-        }
+        new Test();
     }
 }
