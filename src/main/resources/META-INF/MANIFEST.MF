@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Premain-Class: com.manoelcampos.dsagent.CollectionAgent
+Premain-Class: com.manoelcampos.collectionsbuddy.CollectionAgent
 Can-Redefine-Classes: true
 Can-Retransform-Classes: true
-Main-Class: com.manoelcampos.dsagent.CollectionAgent
+Main-Class: com.manoelcampos.collectionsbuddy.CollectionAgent

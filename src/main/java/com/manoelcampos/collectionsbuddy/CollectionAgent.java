@@ -1,4 +1,4 @@
-package com.manoelcampos.dsagent;
+package com.manoelcampos.collectionsbuddy;
 
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;

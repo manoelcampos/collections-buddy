@@ -1,4 +1,4 @@
-package com.manoelcampos.dsagent;
+package com.manoelcampos.collectionsbuddy;
 
 /**
  * A class with the same name of {@link java.util.ArrayList}

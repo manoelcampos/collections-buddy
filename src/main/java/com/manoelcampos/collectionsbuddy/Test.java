@@ -1,4 +1,4 @@
-package com.manoelcampos.dsagent;
+package com.manoelcampos.collectionsbuddy;
 
 import java.util.Random;
 
