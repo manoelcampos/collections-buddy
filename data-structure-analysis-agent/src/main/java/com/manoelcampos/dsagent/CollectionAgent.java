@@ -6,6 +6,7 @@ import net.bytebuddy.asm.Advice;
 
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
+import java.util.Collection;
 import java.util.Random;
 
 //Uncomment this to confirm that JDK classes are being instrumented
@@ -13,11 +14,15 @@ import java.util.ArrayList;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
+/**
+ * A Java Agent to trace calls to methods on {@link Collection} classes.
+ * @see <a href="https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/">Fixing Bugs in Running Java Code with Dynamic Attach</a>
+ */
 public class CollectionAgent {
     public static void premain(final String agentArgs, final Instrumentation inst) throws IOException{
         new AgentBuilder.Default()
                 // by default, JVM classes are not instrumented
-                .ignore(nameStartsWith("net.bytebuddy."))
+                .ignore(none())
                 .disableClassFormatChanges()
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .type(nameEndsWith("ArrayList"))
@@ -30,7 +35,7 @@ public class CollectionAgent {
     }
 
     public static void main(String[] args) throws IOException{
-        System.out.println("Starting " + CollectionAgent.class.getName());
+        System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
 
         final Instrumentation instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
