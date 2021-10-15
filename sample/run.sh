@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
-AGENT_NAME="data-structure-analysis-agent"
-AGENT_DIR="../$AGENT_NAME"
+AGENT_NAME="collections-buddy-agent"
+AGENT_DIR="../"
 AGENT_JAR="$AGENT_DIR/target/$AGENT_NAME.jar"
 mvn -f "$AGENT_DIR/pom.xml" clean package
 mvn clean package

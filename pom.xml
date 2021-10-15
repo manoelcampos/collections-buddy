@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.manoelcampos</groupId>
-    <artifactId>data-structure-analysis-agent</artifactId>
+    <artifactId>collections-buddy-agent</artifactId>
     <version>1.0.0</version>
 
     <dependencies>

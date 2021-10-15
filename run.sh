@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-AGENT="target/data-structure-analysis-agent.jar"
+AGENT="target/collections-buddy-agent.jar"
 mvn clean package
 
 java -javaagent:"$AGENT" -jar "$AGENT"

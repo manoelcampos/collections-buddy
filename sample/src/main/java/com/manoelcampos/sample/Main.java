@@ -1,7 +1,9 @@
 package com.manoelcampos.sample;
 
-import java.util.ArrayList;
 import java.util.Random;
+
+//Uncomment this to confirm that JDK classes are being instrumented
+import java.util.ArrayList;
 
 public class Main {
     private final ArrayList<Integer> arrayList;

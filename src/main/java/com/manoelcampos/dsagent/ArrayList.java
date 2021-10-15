@@ -1,4 +1,4 @@
-package com.manoelcampos.sample;
+package com.manoelcampos.dsagent;
 
 /**
  * A class with the same name of {@link java.util.ArrayList}
