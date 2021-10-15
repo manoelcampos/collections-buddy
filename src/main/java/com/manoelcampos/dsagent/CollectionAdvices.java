@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * {@link Advice} class to trace calls to methods on {@link Collection} classes.
- * @see <a href="https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/">Fixing Bugs in Running Java Code with Dynamic Attach</a>
  */
 public class CollectionAdvices {
     public static final Map<Method, Integer> calls = new HashMap<>();
