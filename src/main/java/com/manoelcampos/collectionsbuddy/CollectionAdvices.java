@@ -64,7 +64,9 @@ public class CollectionAdvices {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
         final var callerClassName = walker.getCallerClass().getName();
         if(callerClassName.startsWith(INSPECT_PACKAGE_NAME)) {
-            System.out.printf("Execution Time: %10dns for %s() called from object inside %s%n", executionTime, simplifiedOrigin, callerClassName);
+            System.out.printf(
+                "Execution Time: %10dns for %s() called from object inside %s%n",
+                executionTime, simplifiedOrigin, callerClassName);
         }
     }
 }
