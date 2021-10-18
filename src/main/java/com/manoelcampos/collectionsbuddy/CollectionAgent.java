@@ -7,11 +7,9 @@ import net.bytebuddy.asm.Advice;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.util.Collection;
-import java.util.Random;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
-//Uncomment this to confirm that JDK classes are being instrumented
 import java.util.LinkedList;
 
 /**
@@ -23,7 +21,7 @@ public class CollectionAgent {
         final var instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
         instrumentation.retransformClasses(LinkedList.class);
-        test();
+        new Test();
     }
 
     /**
@@ -52,19 +50,5 @@ public class CollectionAgent {
                     builder.visit(Advice.to(CollectionAdvices.class).on(isMethod()))
                 )
                 .installOn(inst);
-    }
-
-    private static void test(){
-        System.out.printf("%nStarting test() method%n");
-
-        final var list = new LinkedList<Integer>();
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-
-        final var rand = new Random();
-        for (int i = 0; i < 200; i++) {
-            list.get(rand.nextInt(list.size()));
-        }
     }
 }
