@@ -2,9 +2,14 @@
 
 ## Introduction
 
-## Running
+## Build and Running
 
+Execute the following commands inside the root dir:
 
+```bash
+mvn clean package
+java -jar target/collections-buddy-agent.jar   
+```
 
 ## References
 
