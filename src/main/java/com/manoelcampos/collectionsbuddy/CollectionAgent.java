@@ -4,7 +4,6 @@ import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 
-import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.Collection;
 import java.util.Random;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
  * A Java Agent to trace calls to methods on {@link Collection} classes.
  */
 public class CollectionAgent {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
         final var instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
@@ -48,14 +47,14 @@ public class CollectionAgent {
     private static void test(){
         System.out.printf("%nStarting test() method%n");
 
-        final var arrayList = new ArrayList<Integer>();
+        final var list = new ArrayList<Integer>();
         for (int i = 0; i < 10; i++) {
-            arrayList.add(i);
+            list.add(i);
         }
 
         final var rand = new Random();
         for (int i = 0; i < 200; i++) {
-            arrayList.get(rand.nextInt(arrayList.size()));
+            list.get(rand.nextInt(list.size()));
         }
     }
 }
