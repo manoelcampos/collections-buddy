@@ -21,7 +21,12 @@ public class CollectionAgent {
         new Test();
     }
 
-    public static void premain(final String agentArgs, final Instrumentation inst) throws IOException{
+    /**
+     * Creates the Java Agent to instrument code.
+     * @param agentArgs command line parameters for the agent
+     * @param inst the ByteBuddy instrumentation instante
+     */
+    public static void premain(final String agentArgs, final Instrumentation inst) {
         new AgentBuilder.Default()
                 // by default, JVM classes are not instrumented
                 .ignore(none())
