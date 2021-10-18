@@ -7,8 +7,12 @@ import net.bytebuddy.asm.Advice;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.Collection;
+import java.util.Random;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
+
+//Uncomment this to confirm that JDK classes are being instrumented
+import java.util.ArrayList;
 
 /**
  * A Java Agent to trace calls to methods on {@link Collection} classes.
@@ -18,7 +22,7 @@ public class CollectionAgent {
         System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
         final var instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
-        new Test();
+        test();
     }
 
     /**
@@ -39,5 +43,19 @@ public class CollectionAgent {
                                 .on(isMethod())
                         ))
                 .installOn(inst);
+    }
+
+    private static void test(){
+        System.out.printf("%nStarting test() method%n");
+
+        final var arrayList = new ArrayList<Integer>();
+        for (int i = 0; i < 10; i++) {
+            arrayList.add(i);
+        }
+
+        final var rand = new Random();
+        for (int i = 0; i < 200; i++) {
+            arrayList.get(rand.nextInt(arrayList.size()));
+        }
     }
 }
