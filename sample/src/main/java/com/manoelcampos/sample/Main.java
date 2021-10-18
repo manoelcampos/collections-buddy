@@ -2,22 +2,21 @@ package com.manoelcampos.sample;
 
 import java.util.Random;
 
-//Uncomment this to confirm that JDK classes are being instrumented
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
-    private final ArrayList<Integer> arrayList;
+    private final LinkedList<Integer> list;
 
     public Main(){
         System.out.printf("%nStarting %s%n", Main.class.getName());
-        this.arrayList = new ArrayList<>();
+        this.list = new LinkedList<>();
         for (int i = 0; i < 10; i++) {
-            arrayList.add(i);
+            list.add(i);
         }
 
         final Random rand = new Random();
         for (int i = 0; i < 200; i++) {
-            arrayList.get(rand.nextInt(arrayList.size()));
+            list.get(rand.nextInt(list.size()));
         }
     }
 
