@@ -23,7 +23,7 @@ public class CollectionAdvices {
 
     /**
      * Executed when an advised method is called
-     * @param self object that called the method
+     * @param self object from which the advised method was called
      * @param origin a String representing the called method signature
      * @param args arguments given to the called method
      * @return the time the method started, automatically used as input param to exit() method
@@ -41,6 +41,7 @@ public class CollectionAdvices {
 
     /**
      * Executed when an advised method is finished.
+     * @param self object from which the advised method was called
      * @param startTime the time the method was started, which automatically comes from the
      *                  return of enter() method.
      */
