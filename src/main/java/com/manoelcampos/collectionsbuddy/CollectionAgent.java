@@ -36,11 +36,9 @@ public class CollectionAgent {
                 .disableClassFormatChanges()
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .type(nameEndsWith("LinkedList"))
-                .transform((builder, type, loader, module) -> builder
-                        .visit(Advice
-                                .to(CollectionAdvices.class)
-                                .on(isMethod())
-                        ))
+                .transform((builder, type, loader, module) ->
+                    builder.visit(Advice.to(CollectionAdvices.class).on(isMethod()))
+                )
                 .installOn(inst);
     }
 
