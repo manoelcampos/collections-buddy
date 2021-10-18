@@ -35,6 +35,12 @@ public class CollectionAgent {
         new AgentBuilder.Default()
                 // by default, JVM classes are not instrumented
                 .ignore(none())
+                // Ignore Byte Buddy and JDK classes we are not interested in
+                .ignore(
+                    nameStartsWith("net.bytebuddy.")
+                        .or(nameStartsWith("jdk.internal.reflect."))
+                        .or(nameStartsWith("java.lang.invoke."))
+                        .or(nameStartsWith("com.sun.proxy.")))
                 .disableClassFormatChanges()
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 // Make sure we see helpful logs
