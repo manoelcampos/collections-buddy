@@ -11,7 +11,7 @@ import java.util.Random;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
 //Uncomment this to confirm that JDK classes are being instrumented
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * A Java Agent to trace calls to methods on {@link Collection} classes.
@@ -35,7 +35,7 @@ public class CollectionAgent {
                 .ignore(none())
                 .disableClassFormatChanges()
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
-                .type(nameEndsWith("ArrayList"))
+                .type(nameEndsWith("LinkedList"))
                 .transform((builder, type, loader, module) -> builder
                         .visit(Advice
                                 .to(CollectionAdvices.class)
@@ -47,7 +47,7 @@ public class CollectionAgent {
     private static void test(){
         System.out.printf("%nStarting test() method%n");
 
-        final var list = new ArrayList<Integer>();
+        final var list = new LinkedList<Integer>();
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
