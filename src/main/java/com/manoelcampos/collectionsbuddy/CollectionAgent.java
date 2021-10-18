@@ -16,7 +16,7 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
 public class CollectionAgent {
     public static void main(String[] args) throws IOException{
         System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
-        final Instrumentation instrumentation = ByteBuddyAgent.install();
+        final var instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
         new Test();
     }

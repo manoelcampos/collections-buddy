@@ -16,7 +16,7 @@ public class Test {
             arrayList.add(i);
         }
 
-        final Random rand = new Random();
+        final var rand = new Random();
         for (int i = 0; i < 200; i++) {
             arrayList.get(rand.nextInt(arrayList.size()));
         }
