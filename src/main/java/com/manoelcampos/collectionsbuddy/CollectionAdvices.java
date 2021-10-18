@@ -32,7 +32,7 @@ public class CollectionAdvices {
     static long enter(
         final @Advice.This Object self,
         final @Advice.Origin String origin,
-        //final @Advice.Origin("#t #m") String detailedOrigin,
+        //final @Advice.Origin("#t.#m") String simplifiedOrigin,
         final @Advice.AllArguments Object[] args)
     {
         //System.out.println("Called: " + origin);
@@ -49,9 +49,10 @@ public class CollectionAdvices {
     static void exit(
         final @Advice.This Object self,
         final @Advice.Origin String origin,
+        final @Advice.Origin("#t.#m") String simplifiedOrigin,
         final @Advice.Enter long startTime)
     {
         final long executionTime = System.nanoTime() - startTime;
-        System.out.printf("Execution Time: %10dns for %s%n", executionTime, origin);
+        System.out.printf("Execution Time: %10dns for %s%n", executionTime, simplifiedOrigin);
     }
 }
