@@ -14,6 +14,13 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
  * A Java Agent to trace calls to methods on {@link Collection} classes.
  */
 public class CollectionAgent {
+    public static void main(String[] args) throws IOException{
+        System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
+        final Instrumentation instrumentation = ByteBuddyAgent.install();
+        premain("", instrumentation);
+        new Test();
+    }
+
     public static void premain(final String agentArgs, final Instrumentation inst) throws IOException{
         new AgentBuilder.Default()
                 // by default, JVM classes are not instrumented
@@ -27,12 +34,5 @@ public class CollectionAgent {
                                 .on(isMethod())
                         ))
                 .installOn(inst);
-    }
-
-    public static void main(String[] args) throws IOException{
-        System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
-        final Instrumentation instrumentation = ByteBuddyAgent.install();
-        premain("", instrumentation);
-        new Test();
     }
 }
