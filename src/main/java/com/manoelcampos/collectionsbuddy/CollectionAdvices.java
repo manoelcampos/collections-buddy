@@ -53,6 +53,18 @@ public class CollectionAdvices {
         final @Advice.Enter long startTime)
     {
         final long executionTime = System.nanoTime() - startTime;
-        System.out.printf("Execution Time: %10dns for %s%n", executionTime, simplifiedOrigin);
+
+        /*
+         * Extracting a method for this two lines are expected to not work,
+         * since the getCallerClass will return this exit method,
+         * not the advised method.
+         * However, it's strange that the package name check cannot be
+         * extracted to a new method, since it stops working.
+         */
+        final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+        final var fullClassName = walker.getCallerClass().getName();
+        if(fullClassName.startsWith(INSPECT_PACKAGE_NAME)) {
+            System.out.printf("Execution Time: %10dns for %s() called from object inside %s%n", executionTime, simplifiedOrigin, fullClassName);
+        }
     }
 }
