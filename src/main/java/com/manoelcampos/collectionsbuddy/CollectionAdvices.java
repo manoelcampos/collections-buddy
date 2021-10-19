@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * {@link Advice} class to trace calls to methods on {@link Collection} classes.
+ * @author Manoel Campos da Silva Filho
  */
 public class CollectionAdvices {
     public static final Map<Method, Integer> calls = new HashMap<>();

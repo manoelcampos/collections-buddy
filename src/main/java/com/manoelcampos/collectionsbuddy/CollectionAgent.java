@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 /**
  * A Java Agent to trace calls to methods on {@link Collection} classes.
+ * @author Manoel Campos da Silva Filho
  */
 public class CollectionAgent {
     public static void main(String[] args) throws UnmodifiableClassException {

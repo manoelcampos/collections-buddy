@@ -6,6 +6,7 @@ import java.util.Random;
 /**
  * A sample to check that method calls on JDK {@link java.util.Collection} classes
  * are being intercepted by the implemented {@link CollectionAgent}.
+ * @author Manoel Campos da Silva Filho
  */
 public class Test {
     public Test() {
