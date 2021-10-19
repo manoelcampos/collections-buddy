@@ -29,12 +29,17 @@ public class CollectionAdvices {
     static void exit(final @Advice.Origin(value = "#t.#m#s") String origin)
     {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-        final var callerClass = walker.getCallerClass();
-        final var fullOrigin = String.format("%s from %s", origin, callerClass.getName());
-        if(callerClass.getName().startsWith(INSPECT_PACKAGE_NAME)) {
-            System.out.println(fullOrigin);
-            System.out.println("Current metrics map size: " + metricMap);
-            metricMap.compute(fullOrigin, (k, v) -> v == null ? 1 : v+1);
+        final var callerClass = walker.getCallerClass().getName();
+        final var fullOrigin = String.format("%s from %s", origin, callerClass);
+        if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
+            System.out.println("Called " + fullOrigin);
+            //The print below just appears if I use a local map instead of the static field
+            final var metricMap = new HashMap<String, Integer>();
+            metricMap.put(fullOrigin, 1);
+
+            //compute() isn't working anyway (if metricMap is a field or local var)
+            //metricMap.compute(fullOrigin, (k, v) -> v == null ? 1 : v+1);
+            System.out.println("Current metric map size: " + metricMap.size());
         }
     }
 
