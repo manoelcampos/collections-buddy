@@ -1,4 +1,4 @@
-package com.manoelcampos.collectionsbuddy;
+package com.manoelcampos.collectionsadvisor;
 
 import java.util.LinkedList;
 import java.util.Random;

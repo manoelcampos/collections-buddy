@@ -4,7 +4,7 @@
 
 ## Build and Running
 
-Run `com.manoelcampos.collectionsbuddy.CollectionAgent` class or
+Run `com.manoelcampos.collectionsadvisor.CollectionAgent` class or
 execute the following commands inside the root dir:
 
 ```bash
