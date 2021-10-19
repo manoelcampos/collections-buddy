@@ -13,7 +13,7 @@ public class CollectionAdvice {
      * Only {@link Collection} objects declared in classes
      * inside this package will be traced.
      */
-    public static final String INSPECT_PACKAGE_NAME = "com.manoelcampos";
+    public static String INSPECT_PACKAGE_NAME = "com.manoelcampos.collectionsadvisor";
 
     /**
      * A map where keys are a reference for methods called from a {@link Collection}

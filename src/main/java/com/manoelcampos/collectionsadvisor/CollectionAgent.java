@@ -36,10 +36,19 @@ public class CollectionAgent {
 
     /**
      * Creates the Java Agent to instrument code.
-     * @param agentArgs command line parameters for the agent
+     * @param agentArgs command line parameter for the agent
+     *                  to indicate the package in which to track calls to java.util.Collection objects.
+     *                  You can pass such a parameter for the agent by executing your app for instance as:
+     *                  <p>{@code java -javaagent:collections-advisor-agent.jar=com.manoelcampos -jar sample-app.jar}</p>
+     *                  This way, only Collections inside classes from package com.manoelcampos will be tracked.
      * @param inst the ByteBuddy instrumentation instante
      */
     public static void premain(final String agentArgs, final Instrumentation inst) {
+        if(agentArgs != null && !agentArgs.isBlank()){
+            CollectionAdvice.INSPECT_PACKAGE_NAME = agentArgs;
+        }
+        System.out.printf("%nTracking Collection calls from package %s%n%n", CollectionAdvice.INSPECT_PACKAGE_NAME);
+
         final var interceptorClass = CollectionAdvice.class;
         final var typeMap = Map.of(new ForLoadedType(interceptorClass), read(interceptorClass));
         UsingInstrumentation.of(getTempDir(), BOOTSTRAP, inst).inject(typeMap);
