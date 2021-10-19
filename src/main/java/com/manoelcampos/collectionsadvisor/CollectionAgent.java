@@ -29,7 +29,6 @@ public class CollectionAgent {
         System.out.printf("%nStarting %s%n", CollectionAgent.class.getName());
         final var instrumentation = ByteBuddyAgent.install();
         premain("", instrumentation);
-        instrumentation.retransformClasses(LinkedList.class);
         new Test();
         CollectionAdvice.printMetrics();
     }
@@ -43,7 +42,7 @@ public class CollectionAgent {
      *                  This way, only Collections inside classes from package com.manoelcampos will be tracked.
      * @param inst the ByteBuddy instrumentation instante
      */
-    public static void premain(final String agentArgs, final Instrumentation inst) {
+    public static void premain(final String agentArgs, final Instrumentation inst) throws UnmodifiableClassException {
         if(agentArgs != null && !agentArgs.isBlank()){
             CollectionAdvice.INSPECT_PACKAGE_NAME = agentArgs;
         }
@@ -73,6 +72,8 @@ public class CollectionAgent {
                     builder.visit(Advice.to(CollectionAdvice.class).on(isMethod()))
                 )
                 .installOn(inst);
+
+        inst.retransformClasses(LinkedList.class);
     }
 
     private static File getTempDir() {
