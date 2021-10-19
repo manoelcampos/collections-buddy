@@ -18,7 +18,7 @@ public class Test {
         }
 
         final var rand = new Random();
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 10; i++) {
             list.get(rand.nextInt(list.size()));
         }
     }

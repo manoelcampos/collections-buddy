@@ -4,20 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.manoelcampos</groupId>
-    <artifactId>collections-advisor-agent</artifactId>
+    <groupId>com.manoelcampos.collectionsadvisor</groupId>
+    <artifactId>agent</artifactId>
     <version>1.0.0</version>
+
+    <name>collections-advisor-agent</name>
 
     <dependencies>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
-            <version>1.11.20</version>
+            <version>1.11.21</version>
         </dependency>
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy-agent</artifactId>
-            <version>1.11.20</version>
+            <version>1.11.21</version>
+        </dependency>
+        <dependency>
+            <groupId>com.manoelcampos.collectionsadvisor</groupId>
+            <artifactId>metrics</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

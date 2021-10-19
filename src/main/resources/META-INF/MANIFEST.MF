@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Premain-Class: com.manoelcampos.collectionsadvisor.CollectionAgent
-Can-Redefine-Classes: true
-Can-Retransform-Classes: true
-Main-Class: com.manoelcampos.collectionsadvisor.CollectionAgent
