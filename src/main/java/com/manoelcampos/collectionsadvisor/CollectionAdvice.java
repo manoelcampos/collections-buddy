@@ -33,8 +33,8 @@ public class CollectionAdvice {
         final var fullOrigin = String.format("%s from %s", origin, callerClass);
         if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
             //map.compute() doesn't work inside the agent due to the lambda expression
-            Integer calls = metricMap.get(fullOrigin);
-            calls = calls == null ? metricMap.put(fullOrigin, 1) : metricMap.put(fullOrigin, calls+1);
+            final Integer calls = metricMap.getOrDefault(fullOrigin, 0) + 1;
+            metricMap.put(fullOrigin, calls);
 
             System.out.printf("Current calls for %s: %d%n", fullOrigin, calls);
         }
