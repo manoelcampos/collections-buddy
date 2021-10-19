@@ -10,16 +10,16 @@ import java.util.*;
  */
 public class CollectionAdvices {
     /**
-     * A map where keys are a reference for methods called from a {@link Collection}
-     * and values are the number of calls for each method.
-     */
-    public static final Map<String, Integer> metricMap = new HashMap<>();
-
-    /**
      * Only {@link Collection} objects declared in classes
      * inside this package will be traced.
      */
     public static final String INSPECT_PACKAGE_NAME = "com.manoelcampos";
+
+    /**
+     * A map where keys are a reference for methods called from a {@link Collection}
+     * and values are the number of calls for each method.
+     */
+    public static final Map<String, Integer> metricMap = new HashMap<>();
 
     /**
      * Executed when an advised method is finished.
