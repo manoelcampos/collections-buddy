@@ -22,34 +22,23 @@ public class CollectionAdvices {
     private static String previousPkg = "";
 
     /**
-     * Executed when an advised method is called
-     * @param self object from which the advised method was called
-     * @param origin a String representing the called method signature
-     * @param args arguments given to the called method
+     * Executed when an advised method is called.
      * @return the time the method started, automatically used as input param to exit() method
      */
     @Advice.OnMethodEnter(suppress = Throwable.class)
-    static long enter(
-        final @Advice.This Object self,
-        final @Advice.Origin String origin,
-        //final @Advice.Origin("#t.#m") String simplifiedOrigin,
-        final @Advice.AllArguments Object[] args)
-    {
-        //System.out.println("Called: " + origin);
+    static long enter() {
         return System.nanoTime();
     }
 
     /**
      * Executed when an advised method is finished.
-     * @param self object from which the advised method was called
+     * @param origin identifies which advised method was called and from where
      * @param startTime the time the method was started, which automatically comes from the
      *                  return of enter() method.
      */
     @Advice.OnMethodExit(suppress = Throwable.class, onThrowable = Throwable.class)
     static void exit(
-        final @Advice.This Object self,
-        final @Advice.Origin String origin,
-        final @Advice.Origin("#t.#m") String simplifiedOrigin,
+        final @Advice.Origin("#t.#m") String origin,
         final @Advice.Enter long startTime)
     {
         final long executionTime = System.nanoTime() - startTime;
@@ -66,7 +55,7 @@ public class CollectionAdvices {
         if(callerClassName.startsWith(INSPECT_PACKAGE_NAME)) {
             System.out.printf(
                 "Execution Time: %10dns for %s() called from object inside %s%n",
-                executionTime, simplifiedOrigin, callerClassName);
+                executionTime, origin, callerClassName);
         }
     }
 }
