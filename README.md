@@ -1,4 +1,4 @@
-# Collections Buddy Agent [![Build Status](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml/badge.svg)](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml)
+# Java Collections Advisor [![Build Status](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml/badge.svg)](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml)
 
 ## Introduction
 
@@ -8,7 +8,7 @@ Execute the following commands inside the root dir:
 
 ```bash
 mvn clean package
-java -jar target/collections-buddy-agent.jar   
+java -jar target/collections-advisor-agent.jar   
 ```
 
 ## References

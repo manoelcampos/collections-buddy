@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-AGENT_NAME="collections-buddy-agent"
+AGENT_NAME="collections-advisor-agent"
 AGENT_DIR=".."
 AGENT_JAR="$AGENT_DIR/target/$AGENT_NAME.jar"
 mvn -f "$AGENT_DIR/pom.xml" clean package
