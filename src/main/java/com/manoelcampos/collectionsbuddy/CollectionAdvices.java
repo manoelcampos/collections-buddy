@@ -38,7 +38,7 @@ public class CollectionAdvices {
      */
     @Advice.OnMethodExit(suppress = Throwable.class, onThrowable = Throwable.class)
     static void exit(
-        final @Advice.Origin("#t.#m") String origin,
+        final @Advice.Origin(value = "#t.#m#s") String origin,
         final @Advice.Enter long startTime)
     {
         final long executionTime = System.nanoTime() - startTime;
@@ -54,7 +54,7 @@ public class CollectionAdvices {
         final var callerClassName = walker.getCallerClass().getName();
         if(callerClassName.startsWith(INSPECT_PACKAGE_NAME)) {
             System.out.printf(
-                "Execution Time: %10dns for %s() called from object inside %s%n",
+                "Execution Time: %10dns for %s called from object inside %s%n",
                 executionTime, origin, callerClassName);
         }
     }
