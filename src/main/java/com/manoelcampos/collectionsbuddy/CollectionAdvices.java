@@ -46,8 +46,8 @@ public class CollectionAdvices {
 
         /*
          * Extracting a method for this two lines are expected to not work,
-         * since the getCallerClass will return this exit method,
-         * not the advised method.
+         * since the getCallerClass will return this class,
+         * not the advised class.
          * However, it's strange that the package name check cannot be
          * extracted to a new method, since it stops working.
          */
