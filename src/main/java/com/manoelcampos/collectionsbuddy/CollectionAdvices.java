@@ -20,8 +20,6 @@ public class CollectionAdvices {
      */
     public static final String INSPECT_PACKAGE_NAME = "com.manoelcampos";
 
-    private static String previousPkg = "";
-
     /**
      * Executed when an advised method is called.
      * @return the time the method started, automatically used as input param to exit() method
