@@ -10,11 +10,6 @@ import java.util.Random;
  */
 public class Test {
     public Test() {
-        run();
-        CollectionAdvice.printMetrics();
-    }
-
-    private void run() {
         System.out.printf("%nStarting %s%n", getClass().getName());
 
         final var list = new LinkedList<Integer>();

@@ -31,6 +31,7 @@ public class CollectionAgent {
         premain("", instrumentation);
         instrumentation.retransformClasses(LinkedList.class);
         new Test();
+        CollectionAdvice.printMetrics();
     }
 
     /**
