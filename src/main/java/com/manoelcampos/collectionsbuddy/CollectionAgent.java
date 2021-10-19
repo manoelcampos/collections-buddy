@@ -7,10 +7,9 @@ import net.bytebuddy.asm.Advice;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-
-import java.util.LinkedList;
 
 /**
  * A Java Agent to trace calls to methods on {@link Collection} classes.
