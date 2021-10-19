@@ -14,6 +14,7 @@ java -jar target/collections-advisor-agent.jar
 
 ## References
 
+- [Runtime Code Generation with Byte Buddy](https://blogs.oracle.com/javamagazine/post/runtime-code-generation-with-byte-buddy)
 - [Fixing Bugs in Running Java Code with Dynamic Attach](https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/)
 - [How to Make Java More Dynamic with Runtime Java Code Generation (1/2)](https://www.jrebel.com/blog/runtime-java-code-generation-guide)
 - [Using Byte Buddy for Annotation Driven Java (2/2)](https://www.jrebel.com/blog/using-byte-buddy-for-annotation-driven-java)
