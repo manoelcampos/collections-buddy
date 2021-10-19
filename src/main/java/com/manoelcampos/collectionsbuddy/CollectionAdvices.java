@@ -2,17 +2,18 @@ package com.manoelcampos.collectionsbuddy;
 
 import net.bytebuddy.asm.Advice;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * {@link Advice} class to trace calls to methods on {@link Collection} classes.
  * @author Manoel Campos da Silva Filho
  */
 public class CollectionAdvices {
-    public static final Map<Method, Integer> calls = new HashMap<>();
+    /**
+     * A map where keys are a reference for methods called from a {@link Collection}
+     * and values are the number of calls for each method.
+     */
+    public static final Map<String, Integer> metricMap = new HashMap<>();
 
     /**
      * Only {@link Collection} objects declared in classes
@@ -40,8 +41,6 @@ public class CollectionAdvices {
         final @Advice.Origin(value = "#t.#m#s") String origin,
         final @Advice.Enter long startTime)
     {
-        final long executionTime = System.nanoTime() - startTime;
-
         /*
          * Extracting a method for this two lines are expected to not work,
          * since the getCallerClass will return this class,
@@ -50,11 +49,17 @@ public class CollectionAdvices {
          * extracted to a new method, since it stops working.
          */
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-        final var callerClassName = walker.getCallerClass().getName();
-        if(callerClassName.startsWith(INSPECT_PACKAGE_NAME)) {
-            System.out.printf(
-                "Execution Time: %10dns for %s called from object inside %s%n",
-                executionTime, origin, callerClassName);
+        final var callerClass = walker.getCallerClass();
+        final var fullOrigin = String.format("%s from %s", origin, callerClass.getName());
+        if(callerClass.getName().startsWith(INSPECT_PACKAGE_NAME)) {
+            System.out.println(fullOrigin);
+            System.out.println("Current metrics map size: " + metricMap);
+            metricMap.compute(fullOrigin, (k, v) -> v == null ? 1 : v+1);
         }
+    }
+
+    public static void printMetrics() {
+        System.out.printf("%n# %d Metrics%n", metricMap.size());
+        metricMap.forEach((k, calls) -> System.out.printf("%s: %d calls%n", k, calls));
     }
 }
