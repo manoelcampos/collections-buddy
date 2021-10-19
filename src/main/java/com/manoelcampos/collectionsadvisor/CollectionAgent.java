@@ -3,12 +3,21 @@ package com.manoelcampos.collectionsadvisor;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
+import net.bytebuddy.description.type.TypeDescription.ForLoadedType;
+import net.bytebuddy.dynamic.loading.ClassInjector.UsingInstrumentation;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
 
+import static net.bytebuddy.dynamic.ClassFileLocator.ForClassLoader.read;
+import static net.bytebuddy.dynamic.loading.ClassInjector.UsingInstrumentation.Target.BOOTSTRAP;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
 /**
@@ -30,6 +39,10 @@ public class CollectionAgent {
      * @param inst the ByteBuddy instrumentation instante
      */
     public static void premain(final String agentArgs, final Instrumentation inst) {
+        final var interceptorClass = CollectionAdvice.class;
+        final var typeMap = Map.of(new ForLoadedType(interceptorClass), read(interceptorClass));
+        UsingInstrumentation.of(getTempDir(), BOOTSTRAP, inst).inject(typeMap);
+
         new AgentBuilder.Default()
                 // by default, JVM classes are not instrumented
                 .ignore(none())
@@ -50,5 +63,13 @@ public class CollectionAgent {
                     builder.visit(Advice.to(CollectionAdvice.class).on(isMethod()))
                 )
                 .installOn(inst);
+    }
+
+    private static File getTempDir() {
+        try {
+            return Files.createTempDirectory("tmp").toFile();
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }
