@@ -34,7 +34,7 @@ public class CollectionAdvice {
         if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
             System.out.println("Called " + fullOrigin);
             //The print below just appears if I use a local map instead of the static field
-            final var metricMap = new HashMap<String, Integer>();
+            //final var metricMap = new HashMap<String, Integer>();
             metricMap.put(fullOrigin, 1);
 
             //compute() isn't working anyway (if metricMap is a field or local var)
