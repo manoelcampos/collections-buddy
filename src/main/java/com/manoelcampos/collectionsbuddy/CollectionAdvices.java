@@ -41,13 +41,6 @@ public class CollectionAdvices {
         final @Advice.Origin(value = "#t.#m#s") String origin,
         final @Advice.Enter long startTime)
     {
-        /*
-         * Extracting a method for this two lines are expected to not work,
-         * since the getCallerClass will return this class,
-         * not the advised class.
-         * However, it's strange that the package name check cannot be
-         * extracted to a new method, since it stops working.
-         */
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
         final var callerClass = walker.getCallerClass();
         final var fullOrigin = String.format("%s from %s", origin, callerClass.getName());
