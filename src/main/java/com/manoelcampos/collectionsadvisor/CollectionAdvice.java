@@ -25,7 +25,7 @@ public class CollectionAdvice {
      * Executed when an advised method is finished.
      * @param origin identifies which advised method was called and from where
      */
-    @Advice.OnMethodExit(suppress = Throwable.class, onThrowable = Throwable.class)
+    @Advice.OnMethodExit()
     static void exit(final @Advice.Origin(value = "#t.#m#s") String origin)
     {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
@@ -33,12 +33,12 @@ public class CollectionAdvice {
         final var fullOrigin = String.format("%s from %s", origin, callerClass);
         if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
             System.out.println("Called " + fullOrigin);
-            //The print below just appears if I use a local map instead of the static field
-            //final var metricMap = new HashMap<String, Integer>();
-            metricMap.put(fullOrigin, 1);
+            //compute() doesn't work inside the agent due to the lambda expression
+            final Integer value = metricMap.get(fullOrigin);
+            if(value == null)
+                metricMap.put(fullOrigin, 1);
+            else metricMap.put(fullOrigin, value+1);
 
-            //compute() isn't working anyway (if metricMap is a field or local var)
-            //metricMap.compute(fullOrigin, (k, v) -> v == null ? 1 : v+1);
             System.out.println("Current metric map size: " + metricMap.size());
         }
     }
