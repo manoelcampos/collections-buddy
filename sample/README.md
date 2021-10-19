@@ -1,1 +1,0 @@
-# Collections Buddy Sample
