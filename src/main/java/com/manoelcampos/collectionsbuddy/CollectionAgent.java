@@ -47,7 +47,7 @@ public class CollectionAgent {
                 .with(AgentBuilder.InstallationListener.StreamWriting.toSystemError())
                 .type(nameEndsWith("LinkedList"))
                 .transform((builder, type, loader, module) ->
-                    builder.visit(Advice.to(CollectionAdvices.class).on(isMethod()))
+                    builder.visit(Advice.to(CollectionAdvice.class).on(isMethod()))
                 )
                 .installOn(inst);
     }

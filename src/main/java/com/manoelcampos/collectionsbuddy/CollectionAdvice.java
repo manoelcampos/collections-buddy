@@ -8,7 +8,7 @@ import java.util.*;
  * {@link Advice} class to trace calls to methods on {@link Collection} classes.
  * @author Manoel Campos da Silva Filho
  */
-public class CollectionAdvices {
+public class CollectionAdvice {
     /**
      * Only {@link Collection} objects declared in classes
      * inside this package will be traced.

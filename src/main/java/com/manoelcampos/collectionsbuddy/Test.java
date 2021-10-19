@@ -11,7 +11,7 @@ import java.util.Random;
 public class Test {
     public Test() {
         run();
-        CollectionAdvices.printMetrics();
+        CollectionAdvice.printMetrics();
     }
 
     private void run() {
