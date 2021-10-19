@@ -33,7 +33,7 @@ public class CollectionAdvice {
         final var fullOrigin = String.format("%s from %s", origin, callerClass);
         if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
             System.out.println("Called " + fullOrigin);
-            //compute() doesn't work inside the agent due to the lambda expression
+            //map.compute() doesn't work inside the agent due to the lambda expression
             final Integer value = metricMap.get(fullOrigin);
             if(value == null)
                 metricMap.put(fullOrigin, 1);
