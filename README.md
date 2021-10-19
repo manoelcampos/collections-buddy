@@ -4,7 +4,8 @@
 
 ## Build and Running
 
-Execute the following commands inside the root dir:
+Run `com.manoelcampos.collectionsbuddy.CollectionAgent` class or
+execute the following commands inside the root dir:
 
 ```bash
 mvn clean package
