@@ -22,24 +22,11 @@ public class CollectionAdvices {
     public static final String INSPECT_PACKAGE_NAME = "com.manoelcampos";
 
     /**
-     * Executed when an advised method is called.
-     * @return the time the method started, automatically used as input param to exit() method
-     */
-    @Advice.OnMethodEnter(suppress = Throwable.class)
-    static long enter() {
-        return System.nanoTime();
-    }
-
-    /**
      * Executed when an advised method is finished.
      * @param origin identifies which advised method was called and from where
-     * @param startTime the time the method was started, which automatically comes from the
-     *                  return of enter() method.
      */
     @Advice.OnMethodExit(suppress = Throwable.class, onThrowable = Throwable.class)
-    static void exit(
-        final @Advice.Origin(value = "#t.#m#s") String origin,
-        final @Advice.Enter long startTime)
+    static void exit(final @Advice.Origin(value = "#t.#m#s") String origin)
     {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
         final var callerClass = walker.getCallerClass();
