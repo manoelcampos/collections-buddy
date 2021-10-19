@@ -32,14 +32,11 @@ public class CollectionAdvice {
         final var callerClass = walker.getCallerClass().getName();
         final var fullOrigin = String.format("%s from %s", origin, callerClass);
         if(callerClass.startsWith(INSPECT_PACKAGE_NAME)) {
-            System.out.println("Called " + fullOrigin);
             //map.compute() doesn't work inside the agent due to the lambda expression
-            final Integer value = metricMap.get(fullOrigin);
-            if(value == null)
-                metricMap.put(fullOrigin, 1);
-            else metricMap.put(fullOrigin, value+1);
+            Integer calls = metricMap.get(fullOrigin);
+            calls = calls == null ? metricMap.put(fullOrigin, 1) : metricMap.put(fullOrigin, calls+1);
 
-            System.out.println("Current metric map size: " + metricMap.size());
+            System.out.printf("Current calls for %s: %d%n", fullOrigin, calls);
         }
     }
 
