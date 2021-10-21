@@ -11,17 +11,15 @@ public class CollectionAdvice {
 
     /**
      * Executed when an advised method is finished.
-     * @param origin identifies which advised method was called and from where
+     * @param methodReference a String representation of the {@link Collection} method called
      */
     @Advice.OnMethodExit()
-    public static void exit(final @Advice.Origin(value = "#t.#m#s") String origin) {
+    public static void exit(final @Advice.Origin(value = "#t.#m#s") String methodReference) {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
         final String callerClass = walker.getCallerClass().getName();
-        final var fullOrigin = String.format("%s from %s", origin, callerClass);
+        final var fullOrigin = String.format("%s from %s", methodReference, callerClass);
         if(callerClass.startsWith(Metrics.INSPECT_PACKAGE_NAME)) {
-            final var map = Metrics.metricMap;
-            final Integer calls = map.getOrDefault(fullOrigin, 0) + 1;
-            map.put(fullOrigin, calls);
+            Metrics.add(fullOrigin);
         }
     }
 }
