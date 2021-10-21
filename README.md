@@ -15,7 +15,9 @@ If you are building your own app and want to load the agent during application s
 
 The sample app has not agent code and the instrumentation is performed in runtime.
 
-## 3. References
+## 3. Results after the agent instrument your app code
+
+## 4. References
 
 - [ByteBuddy Tutorial](https://bytebuddy.net/#/tutorial)
 - [Runtime Code Generation with Byte Buddy](https://blogs.oracle.com/javamagazine/post/runtime-code-generation-with-byte-buddy)
