@@ -1,5 +1,6 @@
 package com.manoelcampos.collectionsadvisor;
 
+import com.manoelcampos.collectionsadvisor.sample.Sample;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 
@@ -8,7 +9,6 @@ import java.lang.instrument.UnmodifiableClassException;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import static net.bytebuddy.dynamic.ClassFileLocator.ForClassLoader.read;
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import static net.bytebuddy.matcher.ElementMatchers.isMethod;
 
@@ -32,16 +32,7 @@ public class CollectionAgent {
             throw new RuntimeException(e);
         }
 
-        runSampleCode();
-    }
-
-    /**
-     * Runs sample code that uses instrumented {@link java.util.Collections}
-     * to check if the agent is working.
-     */
-    private static void runSampleCode() {
-        new Test();
-        Metrics.print();
+        new Sample();
     }
 
     private static void buildAgent(final Instrumentation inst) {
