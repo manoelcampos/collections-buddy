@@ -1,18 +1,21 @@
 # Java Collections Advisor [![Build Status](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml/badge.svg)](https://github.com/manoelcampos/collections-buddy/actions/workflows/maven.yml)
 
-## Introduction
+## 1. Introduction
 
-## Build and Running
+## 2. Build and Running
 
-Run `com.manoelcampos.collectionsadvisor.AgentEntry` class or
-execute the following commands inside the root dir:
+In order to just try the agent you have two options:
 
-```bash
-mvn clean package
-java -jar target/collections-advisor-agent.jar   
-```
+- run the `com.manoelcampos.collectionsadvisor.AgentEntry` class from your IDE;
+- execute the [agent/run.sh](agent/run.sh) script.
 
-## References
+### 2.1. Running an independent app
+
+If you are building your own app and want to load the agent during application startup, check the [sample-app/run.sh](sample-app/run.sh) script that does exactly it.
+
+The sample app has not agent code and the instrumentation is performed in runtime.
+
+## 3. References
 
 - [ByteBuddy Tutorial](https://bytebuddy.net/#/tutorial)
 - [Runtime Code Generation with Byte Buddy](https://blogs.oracle.com/javamagazine/post/runtime-code-generation-with-byte-buddy)
