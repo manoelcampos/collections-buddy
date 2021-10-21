@@ -23,7 +23,7 @@ public class AgentEntry {
     /**
      * Starts up the creation of the Java Agent
      * @param agentArgs command line parameter for the agent
-     *                  to indicate the package in which to track calls to java.util.Collection objects.
+     *                  to indicate the package in which to trace calls to java.util.Collection objects.
      *                  You can pass such a parameter for the agent by executing your app for instance as:
      *                  <p>{@code java -javaagent:collections-advisor-agent.jar=com.manoelcampos -jar sample-app.jar}</p>
      *                  This way, only Collections inside classes from package com.manoelcampos will be tracked.

@@ -69,9 +69,10 @@ public class CollectionAgent {
 
     private static void parseAgentParams(final String agentArgs) {
         if(agentArgs != null && !agentArgs.isBlank()){
-            Metrics.INSPECT_PACKAGE_NAME = agentArgs;
+            Metrics.setTracedPackageName(agentArgs);
         }
-        System.out.printf("%nTracking Collection calls from package %s%n%n", Metrics.INSPECT_PACKAGE_NAME);
+
+        System.out.printf("%nTracking java.util.Collection calls from package %s%n%n", Metrics.getTracedPackageName());
     }
 
 }

@@ -8,18 +8,14 @@ import java.util.Collection;
  * @author Manoel Campos da Silva Filho
  */
 public class CollectionAdvice {
-
     /**
      * Executed when an advised method is finished.
-     * @param methodReference a String representation of the {@link Collection} method called
+     * @param methodSignature a String signature of the {@link Collection} method called
      */
     @Advice.OnMethodExit()
-    public static void exit(final @Advice.Origin(value = "#t.#m#s") String methodReference) {
+    public static void exit(final @Advice.Origin(value = "#t.#m#s") String methodSignature) {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-        final String callerClass = walker.getCallerClass().getName();
-        final var fullOrigin = String.format("%s from %s", methodReference, callerClass);
-        if(callerClass.startsWith(Metrics.INSPECT_PACKAGE_NAME)) {
-            Metrics.add(fullOrigin);
-        }
+        final var method = new MethodReference(walker.getCallerClass(), methodSignature);
+        Metrics.add(method);
     }
 }
