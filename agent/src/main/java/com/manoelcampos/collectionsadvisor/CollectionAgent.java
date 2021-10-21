@@ -9,10 +9,8 @@ import java.lang.instrument.UnmodifiableClassException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-import static net.bytebuddy.matcher.ElementMatchers.isMethod;
 
 /**
  * A Java Agent to trace calls to methods on {@link Collection} classes.
@@ -29,8 +27,7 @@ public class CollectionAgent {
         buildAgent(inst);
 
         try {
-            inst.retransformClasses(LinkedList.class);
-            inst.retransformClasses(ArrayList.class);
+            inst.retransformClasses(LinkedList.class, ArrayList.class);
         } catch (final UnmodifiableClassException e) {
             throw new RuntimeException(e);
         }
@@ -54,10 +51,12 @@ public class CollectionAgent {
                 .with(AgentBuilder.RedefinitionStrategy.Listener.StreamWriting.toSystemError())
                 .with(AgentBuilder.Listener.StreamWriting.toSystemError().withTransformationsOnly())
                 .with(AgentBuilder.InstallationListener.StreamWriting.toSystemError())
-                .type(isSubTypeOf(List.class))
+                .type(isSubTypeOf(ArrayList.class).or(isSubTypeOf(LinkedList.class)))
                 .and(not(isAbstract()))
                 .transform((builder, type, loader, module) ->
-                    builder.visit(Advice.to(CollectionAdvice.class).on(isMethod()))
+                    builder.visit(
+                        Advice.to(CollectionAdvice.class)
+                              .on(isMethod().and(not(isConstructor())).and(not(isStatic()))))
                 )
                 .installOn(inst);
     }

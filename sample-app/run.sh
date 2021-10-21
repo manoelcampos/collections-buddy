@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-mvn -f ../pom.xml clean install
+mvn -f ../pom.xml clean install | grep -v INFO
 
 AGENT_DIR="../agent"
 AGENT_NAME="collections-advisor-agent"

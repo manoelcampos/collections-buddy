@@ -13,13 +13,13 @@ public class Metrics {
     private static String tracedPackageName = "com.sample";
 
     /** @see #getMetricMap() */
-    private static final Map<MethodReference, Integer> metricMap = new HashMap<>();
+    private static final Map<CollectionReference, CollectionMetric> metricMap = new HashMap<>();
 
     /**
      * A map where keys are a reference for methods called from a {@link Collection}
      * and values are the number of calls for each method.
      */
-    public static Map<MethodReference, Integer> getMetricMap() {
+    public static Map<CollectionReference, CollectionMetric> getMetricMap() {
         return Collections.unmodifiableMap(metricMap);
     }
 
@@ -37,7 +37,7 @@ public class Metrics {
         System.out.printf(
             "%n# Collections Advisor Agent :: Intercepted java.util.Collection methods calls from %s package%n",
             tracedPackageName);
-        metricMap.forEach((method, calls) -> System.out.printf("%s: %d %s%n", method, calls, calls > 1 ? "calls" : "call"));
+        metricMap.forEach((method, metric) -> System.out.printf("%s:%n  %s%n", method, metric));
     }
 
     /**
@@ -65,18 +65,39 @@ public class Metrics {
     }
 
     /**
-     * Increments the number of calls for a given method
-     * @param method a reference to the {@link Collection} method called
-     * @return the new number of calls for the given Collection method or 0
-     *         if the method {@link MethodReference#isNotInsideTracedPackage() isn't inside a traced package}
+     * Increments the number of calls for methods on a given {@link Collection}
+     *
+     * @param call data about the Collection method call
+     * @return true if the Collection object {@link CollectionReference#isNotInsideTracedPackage() is inside a tracked package};
+     *              false otherwise
      */
-    public static int add(final MethodReference method){
-        if (requireNonNull(method).isNotInsideTracedPackage()) {
-            return 0;
+    public static boolean add(final CollectionCall call){
+        requireNonNull(call);
+        final var reference = call.getCollectionReference();
+        if (reference.isNotInsideTracedPackage()) {
+            return false;
         }
 
-        final int calls = metricMap.getOrDefault(method, 0) + 1;
-        metricMap.put(method, calls);
-        return calls;
+        final var metric = metricMap.getOrDefault(reference, new CollectionMetric());
+        metric.incCalls();
+
+        if(call.isSizeChanged()){
+            metric.incResizes();
+        }
+
+        if(call.isSizeSmaller())
+            metric.incCapacityDecreases();
+        else if(call.isSizeLarger())
+            metric.incCapacityIncreases();
+
+        if(call.getCollectionMethod().equals("clear"))
+            metric.incClearUps();
+        else if(call.getCollectionMethod().equals("get"))
+            metric.incLookups();
+        else if(call.getCollectionMethod().equals("add"))
+            metric.incInserts();
+
+        metricMap.put(reference, metric);
+        return true;
     }
 }

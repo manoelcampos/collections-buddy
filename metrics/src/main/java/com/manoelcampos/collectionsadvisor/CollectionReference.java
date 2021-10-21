@@ -4,29 +4,30 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Identifies a call to a method on a JDK {@link Collection} class.
+ * Represents a reference for a {@link Collection} object
+ * which its method calls are being tracked.
  * @author Manoel Campos da Silva Filho
  * @see Metrics
  */
-public class MethodReference {
+public class CollectionReference {
     private final String callerPackage;
     private final String callerSimpleClassName;
-    private final String methodSignature;
+    private final String collectionClass;
 
     /**
-     * Instantiates a method reference.
+     * Instantiates a CollectionReference object.
      * @param callerClass the class containing the {@link Collection} object where its mentioned method was called.
-     * @param methodSignature a String signature of the {@link Collection} method called
+     * @param collectionClass name of the {@link Collection} class where one of its methods was called
      */
-    public MethodReference(final Class<?> callerClass, final String methodSignature){
+    public CollectionReference(final Class<?> callerClass, final String collectionClass) {
         Objects.requireNonNull(callerClass);
         this.callerPackage = callerClass.getPackageName();
         this.callerSimpleClassName = callerClass.getSimpleName();
-        this.methodSignature = Objects.requireNonNull(methodSignature);
+        this.collectionClass = Objects.requireNonNull(collectionClass);
     }
 
     /**
-     * Checks if the {@link Collection} object where a method was called
+     * Checks if the {@link Collection} object where one of its methods was called
      * is <b>not</b> inside a package that the user wants to trace calls.
      * @return
      */
@@ -35,16 +36,16 @@ public class MethodReference {
     }
 
     /**
-     * Gets a String signature of the {@link Collection} method called.
+     * Gets the name of the {@link Collection} class where one of its methods was called
      * @return
      */
-    public String getMethodSignature() {
-        return methodSignature;
+    public String getCollectionClass() {
+        return collectionClass;
     }
 
     /**
      * Gets the simple name of package containing the {@link Collection}
-     * object where its mentioned method was called.
+     * object where one of its methods was called.
      * @return the package name
      * @see #getCallerSimpleClassName()
      */
@@ -54,7 +55,7 @@ public class MethodReference {
 
     /**
      * Gets the qualified name of class containing the {@link Collection}
-     * object where its mentioned method was called.
+     * object where one of its methods was called.
      * @return the qualified class name (package + class name)
      * @see #getCallerSimpleClassName()
      */
@@ -64,7 +65,7 @@ public class MethodReference {
 
     /**
      * Gets the simple name of class containing the {@link Collection}
-     * object where its mentioned method was called.
+     * object where one of its methods was called.
      * @return the simple class name (without package name)
      * @see #getCallerClassName()
      */
@@ -74,7 +75,7 @@ public class MethodReference {
 
     @Override
     public String toString() {
-        return String.format("%s from %s", methodSignature, getCallerClassName());
+        return String.format("%s from %s", collectionClass, getCallerClassName());
     }
 
     @Override
@@ -82,18 +83,26 @@ public class MethodReference {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        final var that = (MethodReference) o;
+        final var that = (CollectionReference) o;
 
-        if (!getCallerPackage().equals(that.getCallerPackage())) return false;
-        if (!getCallerSimpleClassName().equals(that.getCallerSimpleClassName())) return false;
-        return getMethodSignature().equals(that.getMethodSignature());
+        if (!callerPackage.equals(that.callerPackage)) return false;
+        if (!callerSimpleClassName.equals(that.callerSimpleClassName)) return false;
+        return collectionClass.equals(that.collectionClass);
     }
 
     @Override
     public int hashCode() {
-        int result = getCallerPackage().hashCode();
-        result = 31 * result + getCallerSimpleClassName().hashCode();
-        result = 31 * result + getMethodSignature().hashCode();
+        int result = callerPackage.hashCode();
+        result = 31 * result + callerSimpleClassName.hashCode();
+        result = 31 * result + collectionClass.hashCode();
         return result;
+    }
+
+    public boolean isArrayList(){
+        return "java.util.ArrayList".equals(callerSimpleClassName);
+    }
+
+    public boolean isList(){
+        return callerSimpleClassName.matches("java\\.util\\.+List");
     }
 }

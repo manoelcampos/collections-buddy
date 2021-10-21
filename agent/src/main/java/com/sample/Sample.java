@@ -3,7 +3,9 @@ package com.sample;
 import com.manoelcampos.collectionsadvisor.CollectionAgent;
 import com.manoelcampos.collectionsadvisor.Metrics;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -19,7 +21,14 @@ public class Sample {
     public Sample() {
         System.out.printf("%nStarting %s%n", getClass().getName());
 
-        final var list = new LinkedList<Integer>();
+        operateList(new LinkedList<>()).clear();
+        operateList(new ArrayList<>()).remove(0);
+
+        System.out.println();
+        Metrics.print();
+    }
+
+    private List<Integer> operateList(final List<Integer> list) {
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
@@ -33,8 +42,8 @@ public class Sample {
         for (final Integer val : list) {
             System.out.printf("%d ", val);
         }
-
         System.out.println();
-        Metrics.print();
+
+        return list;
     }
 }
