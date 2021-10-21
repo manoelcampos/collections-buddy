@@ -6,8 +6,10 @@ import net.bytebuddy.asm.Advice;
 
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 import static net.bytebuddy.matcher.ElementMatchers.isMethod;
@@ -28,6 +30,7 @@ public class CollectionAgent {
 
         try {
             inst.retransformClasses(LinkedList.class);
+            inst.retransformClasses(ArrayList.class);
         } catch (final UnmodifiableClassException e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +54,8 @@ public class CollectionAgent {
                 .with(AgentBuilder.RedefinitionStrategy.Listener.StreamWriting.toSystemError())
                 .with(AgentBuilder.Listener.StreamWriting.toSystemError().withTransformationsOnly())
                 .with(AgentBuilder.InstallationListener.StreamWriting.toSystemError())
-                .type(nameEndsWith("LinkedList"))
+                .type(isSubTypeOf(List.class))
+                .and(not(isAbstract()))
                 .transform((builder, type, loader, module) ->
                     builder.visit(Advice.to(CollectionAdvice.class).on(isMethod()))
                 )
