@@ -1,5 +1,7 @@
 package com.manoelcampos.sample;
 
+import com.manoelcampos.collectionsadvisor.Metrics;
+
 import java.util.Random;
 import java.util.LinkedList;
 
@@ -9,22 +11,28 @@ import java.util.LinkedList;
  * @author Manoel Campos da Silva Filho
  */
 public class Main {
-    private final LinkedList<Integer> list;
-
-    public Main(){
+    /**
+     * Runs sample code that uses instrumented {@link java.util.Collections}
+     * to check if the agent is working.
+     */
+    public static void main(String[] args) {
         System.out.printf("%nStarting %s%n", Main.class.getName());
-        this.list = new LinkedList<>();
+        final var list = new LinkedList<Integer>();
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
 
-        final Random rand = new Random();
-        for (int i = 0; i < 200; i++) {
-            list.get(rand.nextInt(list.size()));
+        final var rand = new Random();
+        final int size = list.size();
+        for (int i = 0; i < 10; i++) {
+            list.get(rand.nextInt(size));
         }
-    }
 
-    public static void main(String[] args) {
-        new Main();
+        for (final Integer val : list) {
+            System.out.printf("%d ", val);
+        }
+
+        System.out.println();
+        Metrics.print();
     }
 }

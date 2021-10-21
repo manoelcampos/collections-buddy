@@ -37,4 +37,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <!-- Stores metrics for intercepted method calls on java.util.Collection,
+        enabling print results. -->
+        <dependency>
+            <groupId>com.manoelcampos.collectionsadvisor</groupId>
+            <artifactId>metrics</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
