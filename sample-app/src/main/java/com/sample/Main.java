@@ -1,24 +1,22 @@
-package com.manoelcampos.collectionsadvisor.sample;
+package com.sample;
 
-import com.manoelcampos.collectionsadvisor.CollectionAgent;
 import com.manoelcampos.collectionsadvisor.Metrics;
 
-import java.util.LinkedList;
 import java.util.Random;
+import java.util.LinkedList;
 
 /**
  * A sample to check that method calls on JDK {@link java.util.Collection} classes
- * are being intercepted by the implemented {@link CollectionAgent}.
+ * are being intercepted by the implemented Collections Advisor Agent.
  * @author Manoel Campos da Silva Filho
  */
-public class Sample {
+public class Main {
     /**
      * Runs sample code that uses instrumented {@link java.util.Collections}
      * to check if the agent is working.
      */
-    public Sample() {
-        System.out.printf("%nStarting %s%n", getClass().getName());
-
+    public static void main(String[] args) {
+        System.out.printf("%nStarting %s%n", Main.class.getName());
         final var list = new LinkedList<Integer>();
         for (int i = 0; i < 10; i++) {
             list.add(i);

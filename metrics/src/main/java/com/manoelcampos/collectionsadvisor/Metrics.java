@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Metrics {
     /** @see #getTracedPackageName() */
-    private static String tracedPackageName = "com.manoelcampos.collectionsadvisor";
+    private static String tracedPackageName = "com.sample";
 
     /** @see #getMetricMap() */
     private static final Map<MethodReference, Integer> metricMap = new HashMap<>();

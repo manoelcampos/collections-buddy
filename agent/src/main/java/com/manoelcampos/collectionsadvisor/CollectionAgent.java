@@ -1,6 +1,6 @@
 package com.manoelcampos.collectionsadvisor;
 
-import com.manoelcampos.collectionsadvisor.sample.Sample;
+import com.sample.Sample;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 

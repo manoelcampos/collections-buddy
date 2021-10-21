@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.manoelcampos.sample.Main</mainClass>
+                            <mainClass>com.sample.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
