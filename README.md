@@ -7,13 +7,13 @@
 In order to just try the agent you have two options:
 
 - run the `com.manoelcampos.collectionsadvisor.AgentEntry` class from your IDE;
-- execute the [agent/run.sh](agent/run.sh) script.
+- or execute the [agent/run.sh](agent/run.sh) script.
 
 ### 2.1. Running an independent app
 
-If you are building your own app and want to load the agent during application startup, check the [sample-app/run.sh](sample-app/run.sh) script that does exactly it.
+If you are building your own app and want to load the agent during application startup, check the [sample-app](sample-app) project. Execute the [sample-app/run.sh](sample-app/run.sh) script to build and run the app using the agent.
 
-The sample app has not agent code and the instrumentation is performed in runtime.
+The sample app has no agent code and the instrumentation happens in runtime.
 
 ## 3. Results after the agent instrument your app code
 

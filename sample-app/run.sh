@@ -1,12 +1,10 @@
 #!/bin/bash
 clear
+mvn -f ../pom.xml clean install
+
 AGENT_DIR="../agent"
 AGENT_NAME="collections-advisor-agent"
 AGENT_JAR="$AGENT_DIR/target/$AGENT_NAME.jar"
-
-mvn -f "../metrics/pom.xml" clean install
-mvn -f "$AGENT_DIR/pom.xml" clean install
-mvn clean package
 
 # You can indicate the package in which to track calls to java.util.Collection objects
 # by executing, for instance:
