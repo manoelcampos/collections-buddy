@@ -6,7 +6,7 @@
 
 In order to just try the agent you have two options:
 
-- run the `com.manoelcampos.collectionsadvisor.AgentEntry` class from your IDE;
+- run the `com.manoelcampos.collectionsadvisor.AgentEntry` class from the [agent](agent) dir in your IDE;
 - or execute the [agent/run.sh](agent/run.sh) script.
 
 ### 2.1. Running an independent app
