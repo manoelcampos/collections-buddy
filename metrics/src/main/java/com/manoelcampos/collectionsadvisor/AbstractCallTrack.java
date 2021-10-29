@@ -6,7 +6,7 @@ import java.util.Objects;
  * An abstract class that tracks calls to a specific collection method.
  * @author Manoel Campos da Silva Filho
  */
-abstract class AbstractCallTrack {
+public abstract class AbstractCallTrack {
     private int calls;
     private String operation;
 
