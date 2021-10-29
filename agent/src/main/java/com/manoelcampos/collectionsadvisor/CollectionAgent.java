@@ -56,7 +56,7 @@ public class CollectionAgent {
                 .transform((builder, type, loader, module) ->
                     builder.visit(
                         Advice.to(CollectionAdvice.class)
-                              .on(isMethod().and(not(isConstructor())).and(not(isStatic()))))
+                              .on(isMethod().and(isPublic()).and(not(isConstructor())).and(not(isStatic()))))
                 )
                 .installOn(inst);
     }
