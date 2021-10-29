@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * {@link Advice} class to trace calls to methods on {@link Collection} classes.
+ * {@link Advice} class to trace calls to methods on {@link Collection} objects.
  * @author Manoel Campos da Silva Filho
  */
 public class CollectionAdvice {
