@@ -6,6 +6,10 @@ import java.util.Objects;
  * Counts the number of calls for a given collection method
  * that change the collection size
  * by inserting or removing elements on some position.
+ * TODO this class tracks calls to add/remove methods
+ * considering there are versions of such methods that receive
+ * an index parameter, which is not the case for some collections
+ * such as Map and Set.
  */
 public abstract class AbstractPositionCallCount extends AbstractCallCount {
     protected final CollectionMetric metric;
