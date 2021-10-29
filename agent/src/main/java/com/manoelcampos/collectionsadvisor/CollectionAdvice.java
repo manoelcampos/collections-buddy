@@ -43,8 +43,8 @@ public class CollectionAdvice {
                 new CollectionCall(
                         walker.getCallerClass(),
                         collectionClass, collectionMethod,
-                        self, previousSize, currentSize,
+                        self,
                         arguments);
-        Metrics.add(call);
+        Metrics.add(call, currentSize, previousSize);
     }
 }

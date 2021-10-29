@@ -22,7 +22,12 @@ public class Sample {
         System.out.printf("%nStarting %s%n", getClass().getName());
 
         operateList(new LinkedList<>()).clear();
-        operateList(new ArrayList<>()).remove(0);
+
+        final List<Integer> arrayList = new ArrayList<>();
+        operateList(arrayList);
+        arrayList.remove(0);
+        arrayList.remove(1);
+        arrayList.remove(arrayList.size()-1);
 
         System.out.println();
         Metrics.print();

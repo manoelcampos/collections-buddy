@@ -6,17 +6,17 @@ package com.manoelcampos.collectionsadvisor;
  */
 public class CollectionMetric {
     private int calls;
-    private int resizes;
-    private int sizeIncreases;
-    private int sizeDecreases;
-    private int capacityIncreases;
-    private int capacityDecreases;
-    private int clearUps;
-    private int inserts;
-    private int headInserts;
-    private int middleInserts;
-    private int tailInserts;
     private int lookups;
+    private int clearUps;
+    private AddCallCount inserts;
+    private RemoveCallCount removals;
+    private DimensionCallCount size;
+
+    public CollectionMetric(){
+        this.size = new DimensionCallCount("Resizes");
+        this.inserts  = new AddCallCount("Inserts", this);
+        this.removals = new RemoveCallCount("Removals", this);
+    }
 
     /**
      * Number of times methods were called on the Collection.
@@ -30,40 +30,8 @@ public class CollectionMetric {
      * Number of times the size of a Collection has changed.
      * @return
      */
-    public int getResizes() {
-        return resizes;
-    }
-
-    /**
-     * Number of times the capacity of a Collection has increased.
-     * @return
-     */
-    public int getCapacityIncreases() {
-        return capacityIncreases;
-    }
-
-    /**
-     * Number of times the capacity of a Collection has decreased.
-     * @return
-     */
-    public int getCapacityDecreases() {
-        return capacityDecreases;
-    }
-
-    /**
-     * Number of times the size of a Collection has increased.
-     * @return
-     */
-    public int getSizeIncreases() {
-        return sizeIncreases;
-    }
-
-    /**
-     * Number of times the size of a Collection has decreased.
-     * @return
-     */
-    public int getSizeDecreases() {
-        return sizeDecreases;
+    public DimensionCallCount getSize() {
+        return size;
     }
 
     /**
@@ -78,32 +46,16 @@ public class CollectionMetric {
      * Number of times items were inserted on the Collection.
      * @return
      */
-    public int getInserts() {
+    public AbstractPositionCallCount getInserts() {
         return inserts;
     }
 
     /**
-     * Number of times items were inserted at the head of the Collection.
+     * Number of times items were removed on the Collection.
      * @return
      */
-    public int getHeadInserts() {
-        return headInserts;
-    }
-
-    /**
-     * Number of times items were inserted at the middle of the Collection.
-     * @return
-     */
-    public int getMiddleInserts() {
-        return middleInserts;
-    }
-
-    /**
-     * Number of times items were inserted at the tail of the Collection.
-     * @return
-     */
-    public int getTailInserts() {
-        return tailInserts;
+    public AbstractPositionCallCount getRemovals() {
+        return removals;
     }
 
     /**
@@ -116,43 +68,22 @@ public class CollectionMetric {
 
     public void track(final CollectionCall call) {
         this.calls++;
-        trackSize(call);
+        size.track(call);
 
         if(call.isClear())
             this.clearUps++;
         else if(call.isGet())
             this.lookups++;
-        else if(call.isAdd()) {
-            trackAdd(call);
-        }
-    }
-
-    private void trackAdd(final CollectionCall call) {
-        this.inserts++;
-        if(call.isAddTail())
-            this.tailInserts++;
-        else if(call.isAddHead())
-            this.headInserts++;
-        else this.middleInserts++;
-    }
-
-    private void trackSize(final CollectionCall call) {
-        if(call.isSizeChanged()){
-            this.resizes++;
-        }
-
-        if(call.isSizeSmaller())
-            this.sizeDecreases++;
-        else if(call.isSizeLarger())
-            this.sizeIncreases++;
+        else if(call.isAdd())
+            inserts.track(call);
+        else if(call.isRemove())
+            removals.track(call);
     }
 
     @Override
     public String toString() {
         return String.format(
-            "Calls: %d Lookups: %d Clear Ups: %d Resizes: %d -> %d inc %d dec | Capacity: %d inc %d dec | Inserts: %d head %d inner %d tail %d",
-             calls, lookups, clearUps, resizes, sizeIncreases, sizeDecreases,
-             capacityDecreases, capacityDecreases,
-             inserts, headInserts, middleInserts, tailInserts);
+            "Calls: %d Lookups: %d Clear Ups: %d | %s | %s | %s",
+             calls, lookups, clearUps, size, inserts, removals);
     }
 }
