@@ -2,6 +2,10 @@ package com.manoelcampos.collectionsadvisor;
 
 import java.util.Objects;
 
+/**
+ * An abstract class that tracks
+ * calls to specific collection methods.
+ */
 public abstract class AbstractCallCount {
     private int calls;
     private String operation;
