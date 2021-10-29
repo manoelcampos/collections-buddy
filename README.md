@@ -15,7 +15,7 @@ If you are building your own app and want to load the agent during application s
 
 The sample app has no agent code and the instrumentation happens in runtime.
 
-## 3. Results after the agent instrument your app code
+## 3. Results after running the agent with your app
 
 Current results are very basic since this is a working in progress.
 The agent is not giving any advice about collections utilization yet.
