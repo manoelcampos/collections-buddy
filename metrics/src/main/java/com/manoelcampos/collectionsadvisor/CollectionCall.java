@@ -23,9 +23,9 @@ public class CollectionCall {
 
     public CollectionCall(
         final Class<?> callerClass,
+        final Collection<?> collection,
         final String collectionClass,
         final String collectionMethod,
-        final Collection<?> collection,
         final Object[] arguments)
     {
         this.collectionMethod = requireNonNull(collectionMethod);
