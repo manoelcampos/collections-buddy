@@ -7,6 +7,8 @@ package com.manoelcampos.collectionsadvisor;
 public class CollectionMetric {
     private int calls;
     private int resizes;
+    private int sizeIncreases;
+    private int sizeDecreases;
     private int capacityIncreases;
     private int capacityDecreases;
     private int clearUps;
@@ -46,6 +48,22 @@ public class CollectionMetric {
      */
     public int getCapacityDecreases() {
         return capacityDecreases;
+    }
+
+    /**
+     * Number of times the size of a Collection has increased.
+     * @return
+     */
+    public int getSizeIncreases() {
+        return sizeIncreases;
+    }
+
+    /**
+     * Number of times the size of a Collection has decreased.
+     * @return
+     */
+    public int getSizeDecreases() {
+        return sizeDecreases;
     }
 
     /**
@@ -124,15 +142,17 @@ public class CollectionMetric {
         }
 
         if(call.isSizeSmaller())
-            this.capacityDecreases++;
+            this.sizeDecreases++;
         else if(call.isSizeLarger())
-            this.capacityIncreases++;
+            this.sizeIncreases++;
     }
 
     @Override
     public String toString() {
         return String.format(
-            "Calls: %d Resizes: %d Growths: %d Reductions: %d Clear Ups: %d Inserts: %d Head Inserts: %d Inner Inserts: %d Tail Inserts: %d Lookups: %d",
-             calls, resizes, capacityIncreases, capacityDecreases, clearUps, inserts, headInserts, middleInserts, tailInserts, lookups);
+            "Calls: %d Lookups: %d Clear Ups: %d Resizes: %d -> %d inc %d dec | Capacity: %d inc %d dec | Inserts: %d head %d inner %d tail %d",
+             calls, lookups, clearUps, resizes, sizeIncreases, sizeDecreases,
+             capacityDecreases, capacityDecreases,
+             inserts, headInserts, middleInserts, tailInserts);
     }
 }
