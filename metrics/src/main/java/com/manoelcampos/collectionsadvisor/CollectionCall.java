@@ -9,8 +9,6 @@ import static java.util.Objects.requireNonNull;
  * @author Manoel Campos da Silva Filho
  */
 public class CollectionCall {
-    private final Class<?> callerClass;
-    private final String collectionClass;
     private final String collectionMethod;
 
     /**
@@ -30,16 +28,10 @@ public class CollectionCall {
         final Collection<?> collection,
         final Object[] arguments)
     {
-        this.callerClass = requireNonNull(callerClass);
-        this.collectionClass = requireNonNull(collectionClass);
         this.collectionMethod = requireNonNull(collectionMethod);
         this.collection = collection;
         this.arguments = arguments;
         this.collectionReference = new CollectionReference(callerClass, collectionClass);
-    }
-
-    public String getCollectionClass() {
-        return collectionClass;
     }
 
     public String getCollectionMethod() {
