@@ -90,12 +90,18 @@ public class Metrics {
         else if(call.isSizeLarger())
             metric.incCapacityIncreases();
 
-        if(call.getCollectionMethod().equals("clear"))
+        if(call.isClear())
             metric.incClearUps();
-        else if(call.getCollectionMethod().equals("get"))
+        else if(call.isGet())
             metric.incLookups();
-        else if(call.getCollectionMethod().equals("add"))
+        else if(call.isAdd()) {
             metric.incInserts();
+            if(call.isAddTail())
+                metric.incTailInserts();
+            else if(call.isAddHead())
+                metric.incHeadInserts();
+            else metric.incMiddleInserts();
+        }
 
         metricMap.put(reference, metric);
         return true;

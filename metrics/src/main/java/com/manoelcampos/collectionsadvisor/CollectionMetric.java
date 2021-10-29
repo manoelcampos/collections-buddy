@@ -12,7 +12,7 @@ public class CollectionMetric {
     private int clearUps;
     private int inserts;
     private int headInserts;
-    private int innerInserts;
+    private int middleInserts;
     private int tailInserts;
     private int lookups;
 
@@ -120,12 +120,12 @@ public class CollectionMetric {
      * Number of times items were inserted at the middle of the Collection.
      * @return
      */
-    public int getInnerInserts() {
-        return innerInserts;
+    public int getMiddleInserts() {
+        return middleInserts;
     }
 
-    public void incInnerInserts() {
-        this.innerInserts++;
+    public void incMiddleInserts() {
+        this.middleInserts++;
     }
 
     /**
@@ -156,6 +156,6 @@ public class CollectionMetric {
     public String toString() {
         return String.format(
             "Calls: %d Resizes: %d Growths: %d Reductions: %d Clear Ups: %d Inserts: %d Head Inserts: %d Inner Inserts: %d Tail Inserts: %d Lookups: %d",
-             calls, resizes, capacityIncreases, capacityDecreases, clearUps, inserts, headInserts, innerInserts, tailInserts, lookups);
+             calls, resizes, capacityIncreases, capacityDecreases, clearUps, inserts, headInserts, middleInserts, tailInserts, lookups);
     }
 }
