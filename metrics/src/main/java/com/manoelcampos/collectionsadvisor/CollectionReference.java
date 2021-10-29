@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * Represents a reference for a {@link Collection} object
- * which its method calls are being tracked.
+ * Represents a reference to a {@link Collection} object
+ * where its method calls are being tracked.
+ *
  * @author Manoel Campos da Silva Filho
  * @see Metrics
  */

@@ -5,7 +5,7 @@ import java.util.Collection;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents data about a call for a {@link Collection} method.
+ * Represents data that identifies a call to a {@link Collection} method.
  * @author Manoel Campos da Silva Filho
  */
 public class CollectionCall {
@@ -13,9 +13,12 @@ public class CollectionCall {
     private final String collectionClass;
     private final String collectionMethod;
 
+    /**
+     * Argumentos given to the Collection method called.
+     */
     private final Object[] arguments;
 
-    /** The actual collection where a method was called. */
+    /** The actual Collection where a method was called. */
     private final Collection<?> collection;
 
     private final CollectionReference collectionReference;
@@ -67,12 +70,12 @@ public class CollectionCall {
         return collectionReference;
     }
 
-    /** Number of argumentos given to the advised method called. */
-    public int getArgumentsLen() {
+    /** Gets the number of argumentos given to the collection method called. */
+    public int getArgsLen() {
         return arguments.length;
     }
 
-    /** Gets an argument given to the advised method called.
+    /** Gets an argument given to the collection method called.
      * @param position index of the argument to get from the arguments
      *                 given to the advised method
      * */

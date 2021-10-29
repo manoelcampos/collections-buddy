@@ -8,18 +8,18 @@ public class CollectionMetric {
     private int calls;
     private int lookups;
     private int clearUps;
-    private AddCallCount inserts;
-    private RemoveCallCount removals;
-    private DimensionCallCount size;
+    private final AddCallTrack inserts;
+    private final RemoveCallTrack removals;
+    private final DimensionCallTrack size;
 
     public CollectionMetric(){
-        this.size = new DimensionCallCount("Resizes");
-        this.inserts  = new AddCallCount("Inserts", this);
-        this.removals = new RemoveCallCount("Removals", this);
+        this.size = new DimensionCallTrack("Resizes");
+        this.inserts  = new AddCallTrack("Inserts", this);
+        this.removals = new RemoveCallTrack("Removals", this);
     }
 
     /**
-     * Number of times methods were called on the Collection.
+     * Gets the number of times methods were called on a given Collection.
      * @return
      */
     public int getCalls() {
@@ -27,15 +27,15 @@ public class CollectionMetric {
     }
 
     /**
-     * Number of times the size of a Collection has changed.
+     * Gets the number of times the size of a Collection has changed.
      * @return
      */
-    public DimensionCallCount getSize() {
+    public DimensionCallTrack getSize() {
         return size;
     }
 
     /**
-     * Number of times the Collection was completely cleared up.
+     * Gets the number of times the Collection was completely cleared up.
      * @return
      */
     public int getClearUps() {
@@ -43,29 +43,33 @@ public class CollectionMetric {
     }
 
     /**
-     * Number of times items were inserted on the Collection.
+     * Gets the number of times items were inserted on the Collection.
      * @return
      */
-    public AbstractPositionCallCount getInserts() {
+    public AddCallTrack getInserts() {
         return inserts;
     }
 
     /**
-     * Number of times items were removed on the Collection.
+     * Gets the number of times items were removed on the Collection.
      * @return
      */
-    public AbstractPositionCallCount getRemovals() {
+    public RemoveCallTrack getRemovals() {
         return removals;
     }
 
     /**
-     * Number of times items were accessed at the Collection.
+     * Gets the number of times items were accessed at the Collection.
      * @return
      */
     public int getLookups() {
         return lookups;
     }
 
+    /**
+     * Track calls to Collection methods and compute metrics.
+     * @param call information about the collection method call
+     */
     public void track(final CollectionCall call) {
         this.calls++;
         size.track(call);
