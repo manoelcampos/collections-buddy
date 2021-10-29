@@ -79,30 +79,7 @@ public class Metrics {
         }
 
         final var metric = metricMap.getOrDefault(reference, new CollectionMetric());
-        metric.incCalls();
-
-        if(call.isSizeChanged()){
-            metric.incResizes();
-        }
-
-        if(call.isSizeSmaller())
-            metric.incCapacityDecreases();
-        else if(call.isSizeLarger())
-            metric.incCapacityIncreases();
-
-        if(call.isClear())
-            metric.incClearUps();
-        else if(call.isGet())
-            metric.incLookups();
-        else if(call.isAdd()) {
-            metric.incInserts();
-            if(call.isAddTail())
-                metric.incTailInserts();
-            else if(call.isAddHead())
-                metric.incHeadInserts();
-            else metric.incMiddleInserts();
-        }
-
+        metric.track(call);
         metricMap.put(reference, metric);
         return true;
     }

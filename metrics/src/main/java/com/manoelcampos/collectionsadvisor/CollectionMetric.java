@@ -24,24 +24,12 @@ public class CollectionMetric {
         return calls;
     }
 
-    public void incCalls() {
-        this.calls++;
-    }
-
     /**
      * Number of times the size of a Collection has changed.
      * @return
      */
     public int getResizes() {
         return resizes;
-    }
-
-    /**
-     * Indicates the collection size has changed one more time.
-     * @return
-     */
-    public void incResizes() {
-        this.resizes++;
     }
 
     /**
@@ -53,27 +41,11 @@ public class CollectionMetric {
     }
 
     /**
-     * Indicates the collection capacity has increased one more time.
-     * @return
-     */
-    public void incCapacityIncreases() {
-        this.capacityIncreases++;
-    }
-
-    /**
      * Number of times the capacity of a Collection has decreased.
      * @return
      */
     public int getCapacityDecreases() {
         return capacityDecreases;
-    }
-
-    /**
-     * Indicates the collection capacity has decreased one more time.
-     * @return
-     */
-    public void incCapacityDecreases() {
-        this.capacityDecreases++;
     }
 
     /**
@@ -85,23 +57,11 @@ public class CollectionMetric {
     }
 
     /**
-     * Indicates the collection has beeen cleared up one more time.
-     * @return
-     */
-    public void incClearUps() {
-        this.clearUps++;
-    }
-
-    /**
      * Number of times items were inserted on the Collection.
      * @return
      */
     public int getInserts() {
         return inserts;
-    }
-
-    public void incInserts() {
-        this.inserts++;
     }
 
     /**
@@ -112,20 +72,12 @@ public class CollectionMetric {
         return headInserts;
     }
 
-    public void incHeadInserts() {
-        this.headInserts++;
-    }
-
     /**
      * Number of times items were inserted at the middle of the Collection.
      * @return
      */
     public int getMiddleInserts() {
         return middleInserts;
-    }
-
-    public void incMiddleInserts() {
-        this.middleInserts++;
     }
 
     /**
@@ -136,10 +88,6 @@ public class CollectionMetric {
         return tailInserts;
     }
 
-    public void incTailInserts() {
-        this.tailInserts++;
-    }
-
     /**
      * Number of times items were accessed at the Collection.
      * @return
@@ -148,8 +96,37 @@ public class CollectionMetric {
         return lookups;
     }
 
-    public void incLookups() {
-        this.lookups++;
+    public void track(final CollectionCall call) {
+        this.calls++;
+        trackSize(call);
+
+        if(call.isClear())
+            this.clearUps++;
+        else if(call.isGet())
+            this.lookups++;
+        else if(call.isAdd()) {
+            trackAdd(call);
+        }
+    }
+
+    private void trackAdd(final CollectionCall call) {
+        this.inserts++;
+        if(call.isAddTail())
+            this.tailInserts++;
+        else if(call.isAddHead())
+            this.headInserts++;
+        else this.middleInserts++;
+    }
+
+    private void trackSize(final CollectionCall call) {
+        if(call.isSizeChanged()){
+            this.resizes++;
+        }
+
+        if(call.isSizeSmaller())
+            this.capacityDecreases++;
+        else if(call.isSizeLarger())
+            this.capacityIncreases++;
     }
 
     @Override
