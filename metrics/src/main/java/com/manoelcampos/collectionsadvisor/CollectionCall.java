@@ -19,19 +19,18 @@ public class CollectionCall {
     /** The actual Collection where a method was called. */
     private final Collection<?> collection;
 
-    private final CollectionReference collectionReference;
+    private final CollectionReference collectionRef;
 
     public CollectionCall(
-        final Class<?> callerClass,
+        final CollectionReference collectionRef,
         final Collection<?> collection,
-        final String collectionClass,
         final String collectionMethod,
         final Object[] arguments)
     {
-        this.collectionMethod = requireNonNull(collectionMethod);
+        this.collectionRef = collectionRef;
         this.collection = collection;
+        this.collectionMethod = requireNonNull(collectionMethod);
         this.arguments = arguments;
-        this.collectionReference = new CollectionReference(callerClass, collectionClass);
     }
 
     public String getCollectionMethod() {
@@ -58,8 +57,8 @@ public class CollectionCall {
         return collection;
     }
 
-    public CollectionReference getCollectionReference() {
-        return collectionReference;
+    public CollectionReference getCollectionRef() {
+        return collectionRef;
     }
 
     /** Gets the number of argumentos given to the collection method called. */

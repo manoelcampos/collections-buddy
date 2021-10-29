@@ -23,7 +23,7 @@ public class CollectionAdvice {
 
     /**
      * Executed when an advised method is finished.
-     * @param self the Collection object where one of its methods was called
+     * @param collection the Collection object where one of its methods was called
      * @param collectionClass name of the {@link Collection} class where one of its methods was called
      * @param collectionMethod name of the {@link Collection} method called
      * @param previousSize the size of the collection when the called method was started
@@ -31,7 +31,7 @@ public class CollectionAdvice {
      */
     @Advice.OnMethodExit()
     public static void exit(
-        final @Advice.This List<?> self,
+        final @Advice.This List<?> collection,
         final @Advice.Origin(value = "#t") String collectionClass,
         final @Advice.Origin(value = "#m") String collectionMethod,
         final @Advice.Enter int previousSize,
@@ -40,10 +40,9 @@ public class CollectionAdvice {
     {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
         final var call =
-                new CollectionCall(
-                        walker.getCallerClass(),
-                        self, collectionClass, collectionMethod,
-                        arguments);
+            new CollectionCall(
+                new CollectionReference(walker.getCallerClass(), collectionClass),
+                collection, collectionMethod, arguments);
         Metrics.add(call, currentSize, previousSize);
     }
 }

@@ -75,7 +75,7 @@ public class Metrics {
      */
     public static boolean add(final CollectionCall call, final int currentSize, final int previousSize){
         requireNonNull(call);
-        final var reference = call.getCollectionReference();
+        final var reference = call.getCollectionRef();
         if (reference.isNotInsideTracedPackage()) {
             return false;
         }
