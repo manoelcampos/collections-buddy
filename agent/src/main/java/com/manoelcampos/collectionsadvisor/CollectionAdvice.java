@@ -39,10 +39,8 @@ public class CollectionAdvice {
         final @Advice.AllArguments Object[] arguments)
     {
         final var walker = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
-        final var call =
-            new CollectionCall(
-                new CollectionReference(walker.getCallerClass(), collectionClass),
-                collection, collectionMethod, arguments);
+        final var collectionRef = new CollectionReference(walker.getCallerClass(), collectionClass);
+        final var call = new CollectionCall(collectionRef, collection, collectionMethod, arguments);
         Metrics.add(call, currentSize, previousSize);
     }
 }
