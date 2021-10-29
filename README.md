@@ -17,6 +17,19 @@ The sample app has no agent code and the instrumentation happens in runtime.
 
 ## 3. Results after the agent instrument your app code
 
+Current results are very basic since this is a working in progress.
+The agent is not giving any advice about collections utilization yet.
+Check an example of the agent results over a sample
+app using some Collections.
+
+```
+# Collections Advisor Agent :: Intercepted java.util.Collection methods calls from com.sample package
+java.util.ArrayList from com.sample.Sample:
+  Calls: 33 Lookups: 10 Clear Ups: 0 | Resizes: 17 -> inc 14 dec 3 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 3 -> head 1 middle 1 tail 1
+java.util.LinkedList from com.sample.Sample:
+  Calls: 29 Lookups: 10 Clear Ups: 1 | Resizes: 15 -> inc 14 dec 1 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 0 -> head 0 middle 0 tail 0
+```
+
 ## 4. References
 
 - [ByteBuddy Tutorial](https://bytebuddy.net/#/tutorial)
