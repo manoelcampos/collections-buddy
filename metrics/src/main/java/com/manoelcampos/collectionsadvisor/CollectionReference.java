@@ -17,13 +17,20 @@ public class CollectionReference {
 
     /**
      * Instantiates a CollectionReference object.
+     * @param collectionClass name of the {@link Collection} class where one of its methods was called
+     */
+    public CollectionReference(final String collectionClass) {
+        this(null, collectionClass);
+    }
+
+    /**
+     * Instantiates a CollectionReference object.
      * @param callerClass the class containing the {@link Collection} object where its mentioned method was called.
      * @param collectionClass name of the {@link Collection} class where one of its methods was called
      */
     public CollectionReference(final Class<?> callerClass, final String collectionClass) {
-        Objects.requireNonNull(callerClass);
-        this.callerPackage = callerClass.getPackageName();
-        this.callerSimpleClassName = callerClass.getSimpleName();
+        this.callerPackage = callerClass == null ? "" : callerClass.getPackageName();
+        this.callerSimpleClassName = callerClass == null ? "" : callerClass.getSimpleName();
         this.collectionClass = Objects.requireNonNull(collectionClass);
     }
 

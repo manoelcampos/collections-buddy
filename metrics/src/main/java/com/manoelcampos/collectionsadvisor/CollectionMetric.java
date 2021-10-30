@@ -11,9 +11,11 @@ public class CollectionMetric {
     private final AddCallTrack inserts;
     private final RemoveCallTrack removals;
     private final DimensionCallTrack size;
+    private final DimensionCallTrack capacity;
 
     public CollectionMetric(){
-        this.size = new DimensionCallTrack("Resizes");
+        this.size = new DimensionCallTrack("Size changes");
+        this.capacity = new DimensionCallTrack("Capacity changes");
         this.inserts  = new AddCallTrack("Inserts", this);
         this.removals = new RemoveCallTrack("Removals", this);
     }
@@ -32,6 +34,10 @@ public class CollectionMetric {
      */
     public DimensionCallTrack getSize() {
         return size;
+    }
+
+    public DimensionCallTrack getCapacity() {
+        return capacity;
     }
 
     /**
@@ -73,6 +79,7 @@ public class CollectionMetric {
     public void track(final CollectionCall call) {
         this.calls++;
         size.track(call);
+        capacity.track(call);
 
         if(call.isClear())
             this.clearUps++;
@@ -87,7 +94,7 @@ public class CollectionMetric {
     @Override
     public String toString() {
         return String.format(
-            "Calls: %d Lookups: %d Clear Ups: %d | %s | %s | %s",
-             calls, lookups, clearUps, size, inserts, removals);
+            "Calls: %d Lookups: %d Clear Ups: %d | %s | %s | %s | %s",
+             calls, lookups, clearUps, capacity, size, inserts, removals);
     }
 }

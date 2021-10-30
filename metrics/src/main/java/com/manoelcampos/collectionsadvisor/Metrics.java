@@ -68,12 +68,11 @@ public class Metrics {
      * Increments the number of calls for methods on a given {@link Collection}
      *
      * @param call data about the Collection method call
-     * @param currentSize
-     * @param previousSize
+     * @param attrs Collection attribute values when the called method was started and ended
      * @return true if the Collection object {@link CollectionReference#isNotInsideTracedPackage() is inside a tracked package};
      *              false otherwise
      */
-    public static boolean add(final CollectionCall call, final int currentSize, final int previousSize){
+    public static boolean add(final CollectionCall call, final CollectionAttrs attrs){
         requireNonNull(call);
         final var reference = call.getCollectionRef();
         if (reference.isNotInsideTracedPackage()) {
@@ -81,7 +80,8 @@ public class Metrics {
         }
 
         final var metric = metricMap.getOrDefault(reference, new CollectionMetric());
-        metric.getSize().setValue(previousSize, currentSize);
+        metric.getSize().setValue(attrs.getPreviousSize(), attrs.getCurrentSize());
+        metric.getCapacity().setValue(attrs.getPreviousCapacity(), attrs.getCurrentCapacity());
         metric.track(call);
         metricMap.put(reference, metric);
         return true;
