@@ -46,9 +46,8 @@ public class DimensionCallTrack {
     /**
      * Collect data about the tracked Collection {@link #getOperation() operations}.
      *
-     * @param call information about the collection method call
      */
-    public void track(final CollectionCall call) {
+    public void track() {
         if (isChanged())
             incCalls();
 

@@ -68,7 +68,7 @@ public class CollectionReference {
      * @see #getCallerSimpleClassName()
      */
     public String getCallerClassName() {
-        return String.format("%s.%s", callerPackage, callerSimpleClassName);
+        return callerPackage + "." + callerSimpleClassName;
     }
 
     /**
@@ -83,7 +83,9 @@ public class CollectionReference {
 
     @Override
     public String toString() {
-        return String.format("%s from %s", collectionClass, getCallerClassName());
+        final var callerClassName = getCallerClassName();
+        final var word = callerClassName.isBlank() ? "" : " from ";
+        return String.format("%s%s%s", collectionClass, word, callerClassName);
     }
 
     @Override
@@ -107,10 +109,10 @@ public class CollectionReference {
     }
 
     public boolean isArrayList(){
-        return "java.util.ArrayList".equals(callerSimpleClassName);
+        return "java.util.ArrayList".equals(collectionClass);
     }
 
     public boolean isList(){
-        return callerSimpleClassName.matches("java\\.util\\.+List");
+        return collectionClass.matches("java\\.util\\.+List");
     }
 }

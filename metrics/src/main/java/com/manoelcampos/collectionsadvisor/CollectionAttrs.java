@@ -34,4 +34,15 @@ public class CollectionAttrs {
     public void setCurrentCapacity(final int currentCapacity) {
         this.currentCapacity = currentCapacity;
     }
+
+    @Override
+    public String toString() {
+        final var sb = new StringBuilder("Attrs{");
+        sb.append("previousSize=").append(previousSize);
+        sb.append(", currentSize=").append(currentSize);
+        sb.append("previousCapacity=").append(previousCapacity);
+        sb.append(", currentCapacity=").append(currentCapacity);
+        sb.append('}');
+        return sb.toString();
+    }
 }

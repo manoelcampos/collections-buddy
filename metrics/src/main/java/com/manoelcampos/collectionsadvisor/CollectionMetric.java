@@ -78,8 +78,8 @@ public class CollectionMetric {
      */
     public void track(final CollectionCall call) {
         this.calls++;
-        size.track(call);
-        capacity.track(call);
+        size.track();
+        capacity.track();
 
         if(call.isClear())
             this.clearUps++;
