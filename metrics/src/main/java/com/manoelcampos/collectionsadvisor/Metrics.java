@@ -26,16 +26,18 @@ public class Metrics {
     public static void print() {
         if(metricMap.isEmpty()){
             System.out.println();
-            System.out.println("# Collections Advisor Agent :: No Intercepted calls to java.util.Collection methods. ");
-            System.out.println("# This may be because:");
+            System.out.println("# Collections Advisor Agent");
+            System.out.println("## No Intercepted calls to java.util.Collection methods. ");
+            System.out.println("## This may be because:");
             System.out.println("  - the agent is not working;");
             System.out.println("  - you don't have code using Collection classes;");
             System.out.println("  - you haven't correctly specified the package to track Collection calls when starting up the agent for you app.");
             return;
         }
 
+        System.out.printf("%n# Collections Advisor Agent%n");
         System.out.printf(
-            "%n# Collections Advisor Agent :: Intercepted java.util.Collection methods calls from %s package%n%n",
+            "## Intercepted java.util.Collection methods calls from %s package%n%n",
             tracedPackageName);
         metricMap.forEach((method, metric) -> System.out.printf("%s:%n  %s%n", method, metric));
     }

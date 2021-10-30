@@ -94,7 +94,7 @@ public class CollectionMetric {
     @Override
     public String toString() {
         return String.format(
-            "\tCalls: %d Lookups: %d Clear Ups: %d%n\t%s | %s%n\t%s | %s",
+            "\tCalls: %d Lookups: %d Clear Ups: %d%n\t%s | %s%n\t%s%n\t%s",
              calls, lookups, clearUps, capacity, size, inserts, removals);
     }
 }
