@@ -35,7 +35,7 @@ public class Metrics {
         }
 
         System.out.printf(
-            "%n# Collections Advisor Agent :: Intercepted java.util.Collection methods calls from %s package%n",
+            "%n# Collections Advisor Agent :: Intercepted java.util.Collection methods calls from %s package%n%n",
             tracedPackageName);
         metricMap.forEach((method, metric) -> System.out.printf("%s:%n  %s%n", method, metric));
     }

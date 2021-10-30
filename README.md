@@ -24,6 +24,7 @@ app using some Collections.
 
 ```
 # Collections Advisor Agent :: Intercepted java.util.Collection methods calls from com.sample package
+
 java.util.ArrayList from com.sample.Sample:
   	Calls: 33 Lookups: 10 Clear Ups: 0
 	Capacity changes: 2 -> inc 2 dec 0 | Size changes: 17 -> inc 14 dec 3
