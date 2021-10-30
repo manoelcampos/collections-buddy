@@ -21,20 +21,29 @@ public class Sample {
     public Sample() {
         System.out.printf("%nStarting %s%n", getClass().getName());
 
-        operateList(new LinkedList<>()).clear();
-
-        final List<Integer> arrayList = new ArrayList<>();
-        operateList(arrayList);
-        arrayList.remove(0);
-        arrayList.remove(1);
-        arrayList.remove(arrayList.size()-1);
+        linkedListOperations();
+        arrayListOperations();
 
         System.out.println();
         Metrics.print();
     }
 
-    private List<Integer> operateList(final List<Integer> list) {
-        for (int value = 0; value < 10; value++) {
+    private void linkedListOperations() {
+        final var linkedList = new LinkedList<Integer>();
+        operateList(linkedList, 10);
+        linkedList.clear();
+    }
+
+    private void arrayListOperations() {
+        final var arrayList = new ArrayList<Integer>();
+        operateList(arrayList, 10);
+        arrayList.remove(0);
+        arrayList.remove(1);
+        arrayList.remove(arrayList.size()-1);
+    }
+
+    private void operateList(final List<Integer> list, final int count) {
+        for (int value = 0; value < count; value++) {
             list.add(value);
         }
         add(list, 0);
@@ -44,7 +53,7 @@ public class Sample {
 
         final var rand = new Random();
         final int size = list.size();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < count; i++) {
             list.get(rand.nextInt(size));
         }
 
@@ -52,8 +61,6 @@ public class Sample {
             System.out.printf("%d ", val);
         }
         System.out.println();
-
-        return list;
     }
 
     /**
