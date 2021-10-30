@@ -25,9 +25,9 @@ app using some Collections.
 ```
 # Collections Advisor Agent :: Intercepted java.util.Collection methods calls from com.sample package
 java.util.ArrayList from com.sample.Sample:
-  Calls: 33 Lookups: 10 Clear Ups: 0 | Resizes: 17 -> inc 14 dec 3 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 3 -> head 1 middle 1 tail 1
+  Calls: 33 Lookups: 10 Clear Ups: 0 | Capacity changes: 2 -> inc 2 dec 0 | Size changes: 17 -> inc 14 dec 3 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 3 -> head 1 middle 1 tail 1
 java.util.LinkedList from com.sample.Sample:
-  Calls: 29 Lookups: 10 Clear Ups: 1 | Resizes: 15 -> inc 14 dec 1 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 0 -> head 0 middle 0 tail 0
+  Calls: 29 Lookups: 10 Clear Ups: 1 | Capacity changes: 0 -> inc 0 dec 0 | Size changes: 15 -> inc 14 dec 1 | Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 0 -> head 0 middle 0 tail 0
 ```
 
 ## 4. References
