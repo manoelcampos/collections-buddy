@@ -25,7 +25,7 @@ public class CollectionAdvice {
     {
         //TODO we should have specific OnMethodEnter for ArrayList to
         //enable getting the elementData protected array and avoid reflection
-        final int previousCapacity = 0; //ReflectionUtils.getArrayListCapacity(collection, collectionClass);
+        final int previousCapacity = ReflectionUtils.getArrayListCapacity(collection, collectionClass);
         return new CollectionAttrs(previousSize, previousCapacity);
     }
 
@@ -50,7 +50,7 @@ public class CollectionAdvice {
         final var collectionRef = new CollectionReference(walker.getCallerClass(), collectionClass);
         final var call = new CollectionCall(collectionRef, collection, collectionMethod, arguments);
         attrs.setCurrentSize(currentSize);
-        final int capacity = 0;// ReflectionUtils.getArrayListCapacity(collection, collectionClass);
+        final int capacity = ReflectionUtils.getArrayListCapacity(collection, collectionClass);
         attrs.setCurrentCapacity(capacity);
         Metrics.add(call, attrs);
     }
