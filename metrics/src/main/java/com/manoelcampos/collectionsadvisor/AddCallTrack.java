@@ -19,6 +19,7 @@ public class AddCallTrack {
     private int heads;
     private int middles;
     private int tails;
+    private int moves;
 
     /**
      * Instantiates an object.
@@ -44,11 +45,11 @@ public class AddCallTrack {
     /**
      * Checks if the method call operated over the tail of the Collection.
      *
-     * @param call a reference to the called method.
+     * @param index the position where the item was added
      * @return
      */
-    protected boolean isLastIndex(final CollectionCall call) {
-        return getIndex(call) == metric.getSize().getCurrent() - 1;
+    protected boolean isLastIndex(final int index) {
+        return index == metric.getSize().getCurrent() - 1;
     }
 
     /**
@@ -73,34 +74,40 @@ public class AddCallTrack {
     }
 
     /**
+     * Gets the number of items moved due to an add operation.
+     * @return
+     */
+    public int getMoves() {
+        return moves;
+    }
+
+    /**
      * Collect data about the tracked Collection {@link #getOperation() operations}.
      *
      * @param call information about the collection method call
      */
     public void track(final CollectionCall call) {
         incCalls();
-        if (isLastIndex(call))
+        final int index = getIndex(call);
+
+        if (isLastIndex(index))
             this.tails++;
-        else if (isFirstIndex(call))
+        else if (isFirstIndex(index))
             this.heads++;
         else this.middles++;
+
+        //TODO this is just considering ArrayList operations
+        this.moves += metric.getSize().getPrevious() - index;
     }
 
     /**
      * Checks if the method call operated over the head of the Collection.
      *
-     * @param call a reference to the called method.
+     * @param index the position where the item was added
      * @return
      */
-    private boolean isFirstIndex(final CollectionCall call) {
-        return getIndex(call) == 0;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "%s: %d -> head %d middle %d tail %d", getOperation(), getCalls(),
-                heads, middles, tails);
+    private boolean isFirstIndex(final int index) {
+        return index == 0;
     }
 
     /**
@@ -122,5 +129,12 @@ public class AddCallTrack {
      */
     public String getOperation() {
         return operation;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s: %d -> head %d middle %d tail %d moves %d",
+                getOperation(), getCalls(), heads, middles, tails, moves);
     }
 }

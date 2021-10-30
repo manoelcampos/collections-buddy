@@ -19,6 +19,7 @@ public class RemoveCallTrack {
     private int heads;
     private int middles;
     private int tails;
+    private int moves;
 
     /**
      * Instantiates an object.
@@ -54,11 +55,11 @@ public class RemoveCallTrack {
     /**
      * Checks if the method call operated over the tail of the Collection.
      *
-     * @param call a reference to the called method.
+     * @param index the position where the item was removed
      * @return
      */
-    protected boolean isLastIndex(final CollectionCall call) {
-        return getIndex(call) == metric.getSize().getPrevious() - 1;
+    protected boolean isLastIndex(final int index) {
+        return index == metric.getSize().getPrevious() - 1;
     }
 
     /**
@@ -83,34 +84,39 @@ public class RemoveCallTrack {
     }
 
     /**
+     * Gets the number of items moved due to an remove operation.
+     * @return
+     */
+    public int getMoves() {
+        return moves;
+    }
+
+    /**
+     * Checks if the method call operated over the head of the Collection.
+     *
+     * @param index the position where the item was removed
+     * @return
+     */
+    private boolean isFirstIndex(final int index) {
+        return index == 0;
+    }
+
+    /**
      * Collect data about the tracked Collection {@link #getOperation() operations}.
      *
      * @param call information about the collection method call
      */
     public void track(final CollectionCall call) {
         incCalls();
-        if (isLastIndex(call))
+        final int index = getIndex(call);
+        if (isLastIndex(index))
             this.tails++;
-        else if (isFirstIndex(call))
+        else if (isFirstIndex(index))
             this.heads++;
         else this.middles++;
-    }
 
-    /**
-     * Checks if the method call operated over the head of the Collection.
-     *
-     * @param call a reference to the called method.
-     * @return
-     */
-    private boolean isFirstIndex(final CollectionCall call) {
-        return getIndex(call) == 0;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "%s: %d -> head %d middle %d tail %d", getOperation(), getCalls(),
-                heads, middles, tails);
+        //TODO this is just considering ArrayList operations
+        this.moves += metric.getSize().getPrevious() - (index + 1);
     }
 
     /**
@@ -132,5 +138,12 @@ public class RemoveCallTrack {
      */
     public String getOperation() {
         return operation;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s: %d -> head %d middle %d tail %d moves %d",
+                getOperation(), getCalls(), heads, middles, tails, moves);
     }
 }
