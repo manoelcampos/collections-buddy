@@ -25,14 +25,22 @@ app using some Collections.
 ```
 # Collections Advisor Agent :: Intercepted java.util.Collection methods calls from com.sample package
 
-java.util.ArrayList from com.sample.Sample:
-  	Calls: 33 Lookups: 10 Clear Ups: 0
-	Capacity changes: 2 -> inc 2 dec 0 | Size changes: 17 -> inc 14 dec 3
-	Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 3 -> head 1 middle 1 tail 1
-java.util.LinkedList from com.sample.Sample:
-  	Calls: 29 Lookups: 10 Clear Ups: 1
-	Capacity changes: 0 -> inc 0 dec 0 | Size changes: 15 -> inc 14 dec 1
-	Inserts: 14 -> head 1 middle 2 tail 11 | Removals: 0 -> head 0 middle 0 tail 0
+java.util.ArrayList from com.sample.ArrayListRegularSample:
+  	Calls: 23 Lookups: 10 Clear Ups: 0
+	Capacity changes: 1 -> inc 1 dec 0 | Size changes: 11 -> inc 10 dec 1
+	Inserts: 10 -> head 0 middle 0 tail 10 moves 0 | Removals: 1 -> head 0 middle 0 tail 1 moves 0
+java.util.ArrayList from com.sample.ArrayListAsQueueSample:
+  	Calls: 31 Lookups: 0 Clear Ups: 0
+	Capacity changes: 1 -> inc 1 dec 0 | Size changes: 20 -> inc 10 dec 10
+	Inserts: 10 -> head 0 middle 0 tail 10 moves 0 | Removals: 10 -> head 9 middle 0 tail 1 moves 45
+java.util.ArrayList from com.sample.ArrayListHeadAddSample:
+  	Calls: 10 Lookups: 0 Clear Ups: 0
+	Capacity changes: 1 -> inc 1 dec 0 | Size changes: 10 -> inc 10 dec 0
+	Inserts: 10 -> head 9 middle 0 tail 1 moves 45 | Removals: 0 -> head 0 middle 0 tail 0 moves 0
+java.util.LinkedList from com.sample.LinkedListSample:
+  	Calls: 22 Lookups: 10 Clear Ups: 1
+	Capacity changes: 0 -> inc 0 dec 0 | Size changes: 11 -> inc 10 dec 1
+	Inserts: 10 -> head 0 middle 0 tail 10 moves 0 | Removals: 0 -> head 0 middle 0 tail 0 moves 0
 ```
 
 ## 4. References
