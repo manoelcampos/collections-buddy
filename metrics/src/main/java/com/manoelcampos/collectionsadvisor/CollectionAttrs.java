@@ -6,6 +6,10 @@ public class CollectionAttrs {
     private final int previousSize;
     private final int previousCapacity;
 
+    public CollectionAttrs(final int previousSize) {
+        this(previousSize, 0);
+    }
+
     public CollectionAttrs(final int previousSize, final int previousCapacity) {
         this.previousSize = previousSize;
         this.previousCapacity = previousCapacity;
